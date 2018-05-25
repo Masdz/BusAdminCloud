@@ -1,0 +1,27 @@
+{
+  "name": "busontime",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Masdz/busOnTimeS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Masdz/busOnTimeS/issues"
+  },
+  "homepage": "https://github.com/Masdz/busOnTimeS#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "hashmap": "^2.3.0",
+    "mongoose": "^4.13.4",
+    "mongose": "0.0.2-security",
+    "mysql": "^2.15.0"
+  }
+}
