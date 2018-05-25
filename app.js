@@ -121,6 +121,22 @@ app.get('/ADMINISTRADORES',function(req,res){
     });
 });
 
+app.get('/VIAJES',function(req,res){
+    var query='SELECT aut.Numeroautobus,con.nombre,con.apellidoP,con.apellidoM,DATE_FORMAT(BC.fechaHora,"%d/%m/%Y %H:%i:%s") as fechaHora,rut.origen,rut.destino ';
+    query+= 'FROM Rutas AS rut, conductores AS con, autobuses As aut, BusConductores As BC ';
+    query+= 'WHERE aut.Numeroautobus=BC.Numeroautobus ';
+    query+= 'AND con.idconductor=BC.idconductor ';
+    query+= 'AND rut.idruta=aut.idruta';
+    console.log(query);
+    conexion.query(query,(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(500).send("Error en la consulta:"+error);
+        }else{
+            res.status(200).send(result);
+        }1
+    });
+});
+
 app.post('/LOGINPASAJERO', function (req, res) {
     const {email,pass}=req.body;
     var query='SELECT * FROM pasajeros WHERE email=\"'+email+'\" && contrasena=\"'+pass+'\"';
