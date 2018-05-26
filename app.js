@@ -121,19 +121,45 @@ app.get('/ADMINISTRADORES',function(req,res){
     });
 });
 
-app.get('/VIAJES',function(req,res){
-    var query='SELECT aut.Numeroautobus,con.nombre,con.apellidoP,con.apellidoM,DATE_FORMAT(BC.fechaHora,"%d/%m/%Y %H:%i:%s") as fechaHora,rut.origen,rut.destino ';
+app.get('/VIAJESHISTORIAL',function(req,res){
+    var query='SELECT aut.Numeroautobus,';
+    query+= 'con.nombre,con.apellidoP,con.apellidoM,';
+    query+= 'DATE_FORMAT(BC.fechaHora,"%d/%m/%Y %H:%i:%s") as fechaHora,';
+    query+= 'DATE_FORMAT(BC.fechaHoraLlegada,"%d/%m/%Y %H:%i:%s") as fechaHorallegada,';
+    query+= 'BC.recolectado,';
+    query+= 'rut.origen,rut.destino ';
     query+= 'FROM Rutas AS rut, conductores AS con, autobuses As aut, BusConductores As BC ';
     query+= 'WHERE aut.Numeroautobus=BC.Numeroautobus ';
     query+= 'AND con.idconductor=BC.idconductor ';
-    query+= 'AND rut.idruta=aut.idruta';
+    query+= 'AND rut.idruta=aut.idruta ';
+    query+= 'AND BC.terminado=true'; 
     console.log(query);
     conexion.query(query,(error,result)=>{
         if(error!=undefined&&error!=null){
             res.status(500).send("Error en la consulta:"+error);
         }else{
             res.status(200).send(result);
-        }1
+        }
+    });
+});
+app.get('/VIAJESCURSO',function(req,res){
+    var query='SELECT BC.idbusconductor,';
+    query+= 'aut.Numeroautobus,';
+    query+= 'con.nombre,con.apellidoP,con.apellidoM,';
+    query+= 'DATE_FORMAT(BC.fechaHora,"%d/%m/%Y %H:%i:%s") as fechaHora,';
+    query+= 'rut.origen,rut.destino ';
+    query+= 'FROM Rutas AS rut, conductores AS con, autobuses As aut, BusConductores As BC ';
+    query+= 'WHERE aut.Numeroautobus=BC.Numeroautobus ';
+    query+= 'AND con.idconductor=BC.idconductor ';
+    query+= 'AND rut.idruta=aut.idruta ';
+    query+= 'AND BC.terminado=false ';
+    console.log(query);
+    conexion.query(query,(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(500).send("Error en la consulta:"+error);
+        }else{
+            res.status(200).send(result);
+        }
     });
 });
 
@@ -186,6 +212,37 @@ app.post('/ELIMINARCORDENADAS', function (req, res) {
     map.delete(req.body.id);
     tmap.delete(req.body.id);
     res.status(200).send('Exito');
+});
+
+app.post('/INICIARVIAJE', function (req, res) {
+    const {Numeroautobus,idconductor}=req.body;
+    conexion.query('INSERT INTO busconductores SET?',{
+        Numeroautobus,
+        idconductor,
+        fechaHoraLlegada:null
+    },(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(409).send('Error al iniciar viaje');
+        }else{
+            res.status(200).send('Exito');
+        }
+        console.log('resultado: '+result);
+        console.log('error: '+error);
+    });
+});
+
+app.post('/TERMINARVIAJE', function (req, res) {
+    const {idbusconductor,recolectado}=req.body;
+    var query='UPDATE BusConductores SET fechaHoraLlegada=DEFAULT, recolectado='+recolectado+', terminado=TRUE WHERE idbusconductor='+idbusconductor;
+    conexion.query(query,(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(409).send('Error al terminar viaje');
+        }else{
+            res.status(200).send('Exito');
+        }
+        console.log('resultado: '+result);
+        console.log('error: '+error);
+    });
 });
 
 app.post('/REGISTRARPASAJERO', function (req, res) {
