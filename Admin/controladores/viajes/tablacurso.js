@@ -15,9 +15,7 @@ function actualizarviajescurso() {
     }
     document.getElementById("tablaviajescurso").innerHTML = tabla;
 }
-var idConductor;
 function setidbusconductor(val){
-    idConductor=val;
     console.log("id:"+val);
     document.getElementById("idbusconductoresmod").innerHTML=val;
 }

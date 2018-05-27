@@ -32,74 +32,94 @@
                 </li>
                 <li class="breadcrumb-item active">Viajes</li>
             </ol>
-            <p id="idbusconductoresmod"></p>
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-table"></i> Viajes en curso</div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>No. Autobus</th>
-                                        <th>Conductor</th>
-                                        <th>Salida</th>
-                                        <th>Ruta</th>
-                                        <th>Terminar</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>No. Autobus</th>
-                                        <th>Conductor</th>
-                                        <th>Salida</th>
-                                        <th>Ruta</th>
-                                        <th>Terminar</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody id="tablaviajescurso">
-                                    <script src="controladores/viajes/tablacurso.js"></script>
-                                </tbody>
-                            </table>
-                            <button class="btn btn-primary" onclick="actualizarviajes()">Actualizar</button><br/>
-                        </div>
+                    <i class="fa fa-bus"></i> Inciar viaje</div>
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <label for="">Numero de Autobus</label>
+                        <select class "form-control" id="Numeroautobus">
+                        </select>
+                        <br>
+                        <label for="">Conductor</label>
+                        <select class "form-control" id="idconductor">
+                        </select>
                     </div>
+                    <button class="btn btn-primary" onclick="iniciarViaje()">Iniciar Viaje</button>
+                    <script src="controladores/viajes/forminiciarviaje.js"></script>
                 </div>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-table"></i> Historial de viajes</div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>No. Autobus</th>
-                                        <th>Conductor</th>
-                                        <th>Salida</th>
-                                        <th>Llegada</th>
-                                        <th>Recolectado</th>
-                                        <th>Ruta</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>No. Autobus</th>
-                                        <th>Conductor</th>
-                                        <th>Salida</th>
-                                        <th>Llegada</th>
-                                        <th>Recolectado</th>
-                                        <th>Ruta</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody id="tablaviajeshistorial">
-                                    <script src="controladores/viajes/tablahistorial.js"></script>
-                                </tbody>
-                            </table>
-                            <button class="btn btn-primary" onclick="actualizarviajes()">Actualizar</button><br/>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-play-circle"></i> Viajes en curso</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No. Autobus</th>
+                                <th>Conductor</th>
+                                <th>Salida</th>
+                                <th>Ruta</th>
+                                <th>Terminar</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>No. Autobus</th>
+                                <th>Conductor</th>
+                                <th>Salida</th>
+                                <th>Ruta</th>
+                                <th>Terminar</th>
+                            </tr>
+                        </tfoot>
+                        <tbody id="tablaviajescurso">
+                            <script src="controladores/viajes/tablacurso.js"></script>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" onclick="actualizarviajes()">Actualizar</button>
+                    <br/>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-history"></i> Historial de viajes</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No. Autobus</th>
+                                <th>Conductor</th>
+                                <th>Salida</th>
+                                <th>Llegada</th>
+                                <th>Recolectado</th>
+                                <th>Ruta</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>No. Autobus</th>
+                                <th>Conductor</th>
+                                <th>Salida</th>
+                                <th>Llegada</th>
+                                <th>Recolectado</th>
+                                <th>Ruta</th>
+                            </tr>
+                        </tfoot>
+                        <tbody id="tablaviajeshistorial">
+                            <script src="controladores/viajes/tablahistorial.js"></script>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" onclick="actualizarviajes()">Actualizar</button>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
     <!-- /.container-fluid-->
@@ -133,7 +153,7 @@
     <script src="js/sb-admin-datatables.min.js"></script>
     <script src="js/sb-admin-charts.min.js"></script>
     </div>
-
+    <p id="idbusconductoresmod" style="visibility: hidden; height: 0px;"></p>
 </body>
 
 </html>
