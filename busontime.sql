@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2018 a las 23:32:25
+-- Tiempo de generación: 27-05-2018 a las 06:34:23
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 7.1.7
 
@@ -21,6 +21,22 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `busontime`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `administradores`
+--
+
+CREATE TABLE `administradores` (
+  `idAdministrador` int(11) NOT NULL,
+  `nombre` varchar(60) DEFAULT NULL,
+  `apellidoP` varchar(30) DEFAULT NULL,
+  `apellidoM` varchar(30) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `contrasena` varchar(50) DEFAULT NULL,
+  `idLinea` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -67,12 +83,12 @@ CREATE TABLE `busconductores` (
 --
 
 INSERT INTO `busconductores` (`idbusconductor`, `fechaHora`, `Numeroautobus`, `idconductor`, `fechaHoraLlegada`, `recolectado`, `terminado`) VALUES
-(1, '2018-03-06 04:02:37', 1, 1, '2018-05-26 02:14:16', '250', 1),
-(2, '2018-03-06 04:32:37', 2, 2, '2018-05-26 01:34:25', '0', 0),
-(3, '2018-03-06 05:02:37', 3, 3, '2018-05-26 01:34:25', '0', 0),
+(1, '2018-03-06 04:02:37', 1, 1, '2018-05-27 01:33:34', '250', 1),
+(2, '2018-03-06 04:32:37', 2, 2, '2018-05-27 01:37:48', '150', 1),
+(3, '2018-03-06 05:02:37', 3, 3, '2018-05-27 01:43:41', '250', 1),
 (4, '2018-03-06 05:32:37', 4, 4, '2018-05-26 01:34:25', '0', 0),
 (5, '2018-03-05 19:02:37', 5, 5, '2018-05-26 01:34:25', '0', 0),
-(6, '2018-05-26 01:39:39', 1, 1, '2018-05-26 01:39:39', '100', 0);
+(6, '2018-05-26 01:39:39', 1, 1, '2018-05-27 01:37:21', '200', 1);
 
 -- --------------------------------------------------------
 
@@ -292,6 +308,13 @@ INSERT INTO `rutasparadas` (`idparadas`, `idruta`) VALUES
 --
 
 --
+-- Indices de la tabla `administradores`
+--
+ALTER TABLE `administradores`
+  ADD PRIMARY KEY (`idAdministrador`),
+  ADD KEY `idLinea` (`idLinea`);
+
+--
 -- Indices de la tabla `autobuses`
 --
 ALTER TABLE `autobuses`
@@ -369,6 +392,11 @@ ALTER TABLE `rutasparadas`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `administradores`
+--
+ALTER TABLE `administradores`
+  MODIFY `idAdministrador` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `autobuses`
 --
 ALTER TABLE `autobuses`
@@ -377,7 +405,7 @@ ALTER TABLE `autobuses`
 -- AUTO_INCREMENT de la tabla `busconductores`
 --
 ALTER TABLE `busconductores`
-  MODIFY `idbusconductor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idbusconductor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `conductores`
 --
@@ -406,6 +434,12 @@ ALTER TABLE `rutas`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `administradores`
+--
+ALTER TABLE `administradores`
+  ADD CONSTRAINT `administradores_ibfk_1` FOREIGN KEY (`idLinea`) REFERENCES `lineasautobuses` (`idlinea`);
 
 --
 -- Filtros para la tabla `autobuses`
