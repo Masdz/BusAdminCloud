@@ -120,6 +120,17 @@ app.get('/ADMINISTRADORES',function(req,res){
         }1
     });
 });
+app.get('/RUTAS',function(req,res){
+    var query='SELECT * FROM rutas';
+    console.log(query);
+    conexion.query(query,(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(500).send("Error en la consulta:"+error);
+        }else{
+            res.status(200).send(result);
+        }1
+    });
+});
 
 app.get('/VIAJESHISTORIAL',function(req,res){
     var query='SELECT aut.Numeroautobus,';
@@ -212,6 +223,21 @@ app.post('/ELIMINARCORDENADAS', function (req, res) {
     map.delete(req.body.id);
     tmap.delete(req.body.id);
     res.status(200).send('Exito');
+});
+app.post('/REGISTRARRUTA', function (req, res) {
+    const {origen,destino}=req.body;
+    conexion.query('INSERT INTO Rutas SET?',{
+        origen,
+        destino
+    },(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(409).send('Error al registrar ruta');
+        }else{
+            res.status(200).send('Exito');
+        }
+        console.log('resultado: '+result);
+        console.log('error: '+error);
+    });
 });
 
 app.post('/INICIARVIAJE', function (req, res) {

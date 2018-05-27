@@ -10,7 +10,9 @@ function actualizarviajescurso() {
         tabla += "<td>" + res[i].nombre +' '+ res[i].apellidoP +' '+ res[i].apellidoM + "</td>";
         tabla += "<td>" + res[i].fechaHora + "</td>";
         tabla += "<td>" + res[i].origen + '-' + res[i].destino + "</td>";
-        tabla += '<td><button class="btn btn-primary" data-toggle="modal" data-target="#terminarviajeModal" onclick="setidbusconductor('+res[i].idbusconductor+')">Terminar viaje</button></td>';
+        tabla += '<td><button class="btn btn-primary" data-toggle="modal" data-target="#terminarviajeModal" onclick="setidbusconductor('+res[i].idbusconductor+')">'
+        tabla += '<i class="fa fa-check"></i>'
+        tabla += '</button></td>';
         tabla += '</tr>';
     }
     document.getElementById("tablaviajescurso").innerHTML = tabla;
