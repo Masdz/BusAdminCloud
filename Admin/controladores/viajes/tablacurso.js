@@ -28,7 +28,7 @@ function terminarViaje(recolectado){
     request.open("POST", "TERMINARVIAJE", true);
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.onreadystatechange = function() {
-        if(request.readyState == 4 && request.status == 200) {
+        if(request.readyState == 4) {
            alert(request.responseText);
         }
         actualizarviajescurso();
