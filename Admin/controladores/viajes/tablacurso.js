@@ -10,20 +10,33 @@ function actualizarviajescurso() {
         tabla += "<td>" + res[i].nombre +' '+ res[i].apellidoP +' '+ res[i].apellidoM + "</td>";
         tabla += "<td>" + res[i].fechaHora + "</td>";
         tabla += "<td>" + res[i].origen + '-' + res[i].destino + "</td>";
-        tabla += "<td>";
-        tabla += '<button type="button" class="btn btn-success"';
-        tabla += 'data-toggle="modal" data-target="#terminarviajeModal" onclick="setidbusconductor()">';
-        
-        tabla += '<i class="fa fa-fw fa-sign-out"></i>';
-        tabla += '</button>';
-        tabla += "</td>";
-        tabla += "</tr>";
+        tabla += '<td><button class="btn btn-primary" data-toggle="modal" data-target="#terminarviajeModal" onclick="setidbusconductor('+res[i].idbusconductor+')">Terminar viaje</button></td>';
+        tabla += '</tr>';
     }
     document.getElementById("tablaviajescurso").innerHTML = tabla;
 }
 var idConductor;
-function setidbusconductor(){
+function setidbusconductor(val){
+    idConductor=val;
+    console.log("id:"+val);
+    document.getElementById("idbusconductoresmod").innerHTML=val;
+}
 
+function terminarViaje(recolectado){
+    //var recolectado=document.getElementById("recolectado");
+    var id=document.getElementById("idbusconductoresmod").innerHTML;
+    var request=new XMLHttpRequest();
+    var param='{"idbusconductor":1,"recolectado":"250"}';
+    request.open("POST", "TERMINARVIAJE", true);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.onreadystatechange = function() {
+        if(request.readyState == 4 && request.status == 200) {
+           alert(request.responseText);
+        }
+        actualizarviajescurso();
+        actualizarviajeshistorial();
+    }
+    request.send(JSON.stringify({"idbusconductor":id,"recolectado":recolectado}));
 }
 
 actualizarviajescurso();

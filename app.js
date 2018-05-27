@@ -237,6 +237,8 @@ app.post('/TERMINARVIAJE', function (req, res) {
     conexion.query(query,(error,result)=>{
         if(error!=undefined&&error!=null){
             res.status(409).send('Error al terminar viaje');
+            console.log('id '+idbusconductor);
+            console.log('recc '+recolectado);
         }else{
             res.status(200).send('Exito');
         }
