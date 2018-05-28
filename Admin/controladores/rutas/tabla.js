@@ -13,4 +13,18 @@ function actualizarRutas() {
     }
     document.getElementById("tabla").innerHTML = tabla;
 }
+function registrarRuta(){
+    var origen=document.getElementById("ftorigen").value;
+    var destino=document.getElementById("ftdestino").value;
+    var request=new XMLHttpRequest();
+    request.open("POST", "REGISTRARRUTA", true);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+           alert(request.responseText);
+        }
+        actualizarRutas();
+    }
+    request.send(JSON.stringify({origen,destino}));
+}
 actualizarRutas();

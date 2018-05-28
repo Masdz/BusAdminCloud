@@ -34,6 +34,19 @@
             </ol>
             <div class="card mb-3">
                 <div class="card-header">
+                    <i class="fa fa-table"></i> Registrar Ruta</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Origen</label>
+                        <input type="text" class="form-control" id="ftorigen" placeholder="Origen">
+                        <label>Destino</label>
+                        <input type="text" class="form-control" id="ftdestino" placeholder="Destino">
+                    </div>
+                    <button class="btn btn-primary" onclick="registrarRuta()">Agregar Ruta</button>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header">
                     <i class="fa fa-table"></i> Rutas</div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -57,9 +70,6 @@
                             </tbody>
                         </table>
                         <button class="btn btn-primary" onclick="actualizarRutas()">Actualizar</button>
-                        <button class="btn btn-primary" onclick="actualizarRutas()">Añadir</button>
-
-                        <br/>
                     </div>
                 </div>
             </div>

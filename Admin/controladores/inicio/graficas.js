@@ -103,4 +103,16 @@ function inigrafica() {
     }
   });
 }
+function initabla(){
+  var tabla="";
+  for(var i in datos){
+    tabla+="<tr>";
+    tabla+="<td>"+i+"</td>";
+    tabla+="<td>"+etiquetas[i]+"</td>";
+    tabla+="<td>"+datos[i]+"</td>";
+    tabla+="</tr>";
+  }
+  document.getElementById("tabla").innerHTML=tabla;
+}
 inigrafica();
+initabla();

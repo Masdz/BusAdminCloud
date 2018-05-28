@@ -356,6 +356,20 @@ app.post('/REGISTRARADMINISTRADOR', function (req, res) {
     });
 });
 
+app.post('/ELIMINARVIAJE', function (req, res) {
+    const {id}=req.body;
+    var query="Delete from busconductores where idbusconductor="+id;
+    conexion.query(query,(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(409).send('Error al eliminar viaje'+error);
+        }else{
+            res.status(200).send('Exito');
+        }
+        console.log('resultado: '+result);
+        console.log('error: '+error);
+    });
+});
+
 
 
 //app.listen(3000);

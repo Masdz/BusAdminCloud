@@ -15,4 +15,20 @@ function actualizarConductores() {
     }
     document.getElementById("tabla").innerHTML = tabla;
 }
+function registrarConductor(){
+    var nombre=document.getElementById("ftnombre").value;
+    var apaterno=document.getElementById("ftapellidop").value;
+    var amaterno=document.getElementById("ftapellidom").value;
+    var email=document.getElementById("ftcorreo").value;
+    var request=new XMLHttpRequest();
+    request.open("POST", "REGISTRARCONDUCTOR", true);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+           alert(request.responseText);
+        }
+        actualizarConductores();
+    }
+    request.send(JSON.stringify({nombre,apaterno,amaterno,email,contrasena:null}));
+}
 actualizarConductores();
