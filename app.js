@@ -132,6 +132,18 @@ app.get('/RUTAS',function(req,res){
     });
 });
 
+app.get('/INGRESOS',function(req,res){
+    var query='SELECT recolectado,MONTH(fechaHora) as mes FROM busconductores WHERE fechaHora>DATE_SUB(now(),INTERVAL 1 YEAR) ORDER By fechaHora';
+    console.log(query);
+    conexion.query(query,(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(500).send("Error en la consulta:"+error);
+        }else{
+            res.status(200).send(result);
+        }1
+    });
+});
+
 app.get('/VIAJESHISTORIAL',function(req,res){
     var query='SELECT aut.Numeroautobus,';
     query+= 'con.nombre,con.apellidoP,con.apellidoM,';
@@ -224,6 +236,24 @@ app.post('/ELIMINARCORDENADAS', function (req, res) {
     tmap.delete(req.body.id);
     res.status(200).send('Exito');
 });
+app.post('/REGISTRARAUTOBUS', function (req, res) {
+    const {Numeroautobus,placa,idlinea,idruta}=req.body;
+    conexion.query('INSERT INTO autobuses SET?',{
+        Numeroautobus,
+        placa,
+        idlinea,
+        idruta
+    },(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(409).send('Error al registrar autobus:'+error);
+        }else{
+            res.status(200).send('Exito');
+        }
+        console.log('resultado: '+result);
+        console.log('error: '+error);
+    });
+});
+
 app.post('/REGISTRARRUTA', function (req, res) {
     const {origen,destino}=req.body;
     conexion.query('INSERT INTO Rutas SET?',{
@@ -303,6 +333,21 @@ app.post('/REGISTRARCONDUCTOR', function (req, res) {
     },(error,result)=>{
         if(error!=undefined&&error!=null){
             res.status(409).send('Error al registrar Usuario');
+        }else{
+            res.status(200).send('Exito');
+        }
+        console.log('resultado: '+result);
+        console.log('error: '+error);
+    });
+});
+
+app.post('/REGISTRARADMINISTRADOR', function (req, res) {
+    const {nombre,apellidoP,apellidoM,email,contrasena}=req.body;
+    conexion.query('INSERT INTO administradores SET?',{
+        nombre,apellidoP,apellidoM,email,contrasena
+    },(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(409).send('Error al registrar Administrador'+error);
         }else{
             res.status(200).send('Exito');
         }
