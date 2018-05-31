@@ -16,6 +16,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="shortcut icon" href="bot.ico" type="image/x-icon">
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -59,6 +60,8 @@
                                     <th>No. Autobus</th>
                                     <th>Placa</th>
                                     <th>Ruta</th>
+                                    <th>Total de viajes realizados</th>
+                                    <th>Eliminar</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -66,6 +69,8 @@
                                     <th>No. Autobus</th>
                                     <th>Placa</th>
                                     <th>Ruta</th>
+                                    <th>Total de viajes realizados</th>
+                                    <th>Eliminar</th>
                                 </tr>
                             </tfoot>
                             <tbody id="tabla">
@@ -94,6 +99,10 @@
     <div id="modal">
         <script src="secciones/modal/modal.js"></script>
     </div>
+    <div id="confirmacion">
+        <script src="secciones/modalconfirmacion/modalconfirmacion.js"></script>
+    </div>
+    <p id="idItem" style="visibility: hidden; height: 0px;"></p>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

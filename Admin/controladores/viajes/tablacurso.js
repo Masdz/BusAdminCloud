@@ -10,6 +10,9 @@ function actualizarviajescurso() {
         tabla += "<td>" + res[i].nombre +' '+ res[i].apellidoP +' '+ res[i].apellidoM + "</td>";
         tabla += "<td>" + res[i].fechaHora + "</td>";
         tabla += "<td>" + res[i].origen + '-' + res[i].destino + "</td>";
+        tabla += '<td><button class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal" onclick="setidbusconductor('+res[i].idbusconductor+')">'
+        tabla += '<i class="fa fa-trash"></i>'
+        tabla += '</button></td>';
         tabla += '<td><button class="btn btn-primary" data-toggle="modal" data-target="#terminarviajeModal" onclick="setidbusconductor('+res[i].idbusconductor+')">'
         tabla += '<i class="fa fa-check"></i>'
         tabla += '</button></td>';
@@ -37,6 +40,20 @@ function terminarViaje(recolectado){
         actualizarviajeshistorial();
     }
     request.send(JSON.stringify({"idbusconductor":id,"recolectado":recolectado}));
+}
+function eliminar(){
+    var id=document.getElementById("idbusconductoresmod").innerHTML;
+    var request=new XMLHttpRequest();
+    request.open("POST", "ELIMINARVIAJE", true);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.onreadystatechange = function() {
+        if(request.readyState == 4) {
+           alert(request.responseText);
+        }
+        actualizarviajescurso();
+        actualizarviajeshistorial();
+    }
+    request.send(JSON.stringify({id}));
 }
 
 actualizarviajescurso();

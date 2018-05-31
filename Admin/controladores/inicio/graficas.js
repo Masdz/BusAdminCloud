@@ -3,49 +3,63 @@
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
-var etiquetas=[];
-var datos=[];
-var maxi=0;
-function getDatos(){
-  var request=new XMLHttpRequest();
-  request.open('GET','INGRESOS',false);
+var etiquetas = [];
+var nbuses = [];
+var datos = [];
+var datosbuses = [];
+var maxi = 0;
+function getDatos() {
+  var request = new XMLHttpRequest();
+  request.open('GET', 'INGRESOS', false);
   request.send(null);
-  var res=JSON.parse(request.responseText);
-  var vals=[0,0,0,0,0,0,0,0,0,0,0,0,0];
-  var meses=["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-  for(var i in res){
-    vals[res[i].mes-1]+=res[i].recolectado;
+  var res = JSON.parse(request.responseText);
+  var vals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  for (var i in res) {
+    vals[res[i].mes - 1] += res[i].recolectado;
   }
-  var mes=new Date().getMonth();
-  for(var i=0;i<12;i++){
+  var mes = new Date().getMonth();
+  for (var i = 0; i < 12; i++) {
     mes++;
-    if(mes>11){
-      mes=0;
+    if (mes > 11) {
+      mes = 0;
     }
     datos.push(vals[mes]);
     etiquetas.push(meses[mes]);
-    maxi=getMaxi(datos);
+    maxi = getMaxi(datos);
   }
 }
 
-function getMaxi(datos){
-  var maxi=0;
-  for(var i in datos){
-    if(datos[i]>maxi){
-      maxi=datos[i];
+function getDatos2() {
+  var request = new XMLHttpRequest();
+  request.open('GET', 'AUTOBUSES2', false);
+  request.send(null);
+  var res = JSON.parse(request.responseText);
+  for (var i in res) {
+    nbuses.push("Autobús "+res[i].Numeroautobus);
+    datosbuses.push(res[i].total);
+  }
+
+}
+
+function getMaxi(datos) {
+  var maxi = 0;
+  for (var i in datos) {
+    if (datos[i] > maxi) {
+      maxi = datos[i];
     }
   }
   return maxi;
 }
 
-function getLabels(){
-  var meses=["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-  var mes=new Date().getMonth();
-  var labels=[];
-  for(var i=0;i<12;i++){
+function getLabels() {
+  var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  var mes = new Date().getMonth();
+  var labels = [];
+  for (var i = 0; i < 12; i++) {
     mes++;
-    if(mes>=12){
-      mes=0;
+    if (mes >= 12) {
+      mes = 0;
     }
     labels.push(meses[mes]);
   }
@@ -103,16 +117,33 @@ function inigrafica() {
     }
   });
 }
-function initabla(){
-  var tabla="";
-  for(var i in datos){
-    tabla+="<tr>";
-    tabla+="<td>"+i+"</td>";
-    tabla+="<td>"+etiquetas[i]+"</td>";
-    tabla+="<td>"+datos[i]+"</td>";
-    tabla+="</tr>";
+function inipastel() {
+  getDatos2();
+  var ctx = document.getElementById("pastel");
+  var myPieChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: nbuses,
+      datasets: [{
+        label: "Número de viajes:",
+        lineTension: 0.3,
+        data: datosbuses,
+        backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745','#58a703'],
+      }],
+    },
+  });
+}
+function initabla() {
+  var tabla = "";
+  for (var i in datos) {
+    tabla += "<tr>";
+    tabla += "<td>" + i + "</td>";
+    tabla += "<td>" + etiquetas[i] + "</td>";
+    tabla += "<td>" + datos[i] + "</td>";
+    tabla += "</tr>";
   }
-  document.getElementById("tabla").innerHTML=tabla;
+  document.getElementById("tabla").innerHTML = tabla;
 }
 inigrafica();
+inipastel();
 initabla();

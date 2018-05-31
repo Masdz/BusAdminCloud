@@ -16,6 +16,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="shortcut icon" href="bot.ico" type="image/x-icon">
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -63,6 +64,7 @@
                                     <th>Conductor</th>
                                     <th>Salida</th>
                                     <th>Ruta</th>
+                                    <th>Eliminar</th>
                                     <th>Terminar</th>
                                 </tr>
                             </thead>
@@ -72,6 +74,7 @@
                                     <th>Conductor</th>
                                     <th>Salida</th>
                                     <th>Ruta</th>
+                                    <th>Eliminar</th>
                                     <th>Terminar</th>
                                 </tr>
                             </tfoot>
@@ -139,6 +142,10 @@
     <div id="modalterminar">
         <script src="controladores/viajes/modal.js"></script>
     </div>
+    <div id="confirmacion">
+        <script src="secciones/modalconfirmacion/modalconfirmacion.js"></script>
+    </div>
+    <p id="idbusconductoresmod" style="visibility: hidden; height: 0px;"></p>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -154,7 +161,6 @@
     <script src="js/sb-admin-datatables.min.js"></script>
     <script src="js/sb-admin-charts.min.js"></script>
     </div>
-    <p id="idbusconductoresmod" style="visibility: hidden; height: 0px;"></p>
 </body>
 
 </html>
