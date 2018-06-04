@@ -6,11 +6,10 @@ function actualizarAdministradores() {
     var tabla = "";
     for (var i in res) {
         tabla += "<tr>";
-        tabla += "<td>" + res[i].idAdministrador + "</td>";
         tabla += "<td>" + res[i].nombre + "</td>";
-        tabla += "<td>" + res[i].apellidoP + "</td>";
-        tabla += "<td>" + res[i].apellidoM + "</td>";
-        tabla += "<td>" + res[i].email + "</td>";
+        tabla += "<td>" + res[i].apPaterno + "</td>";
+        tabla += "<td>" + res[i].apMaterno + "</td>";
+        tabla += "<td>" + res[i].correo + "</td>";
         tabla += "</tr>";
     }
     document.getElementById("tabla").innerHTML = tabla;
