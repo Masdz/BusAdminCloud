@@ -119,7 +119,8 @@ app.get('/AUTOBUSES2',function(req,res){
 })  
 
 app.get('/REPORTES',function(req,res){
-    var query='SELECT nombre,apellidoP,apellidoM,motivo,fecha '  
+    var query='SELECT nombre,apellidoP,apellidoM,motivo,'  
+    query+='DATE_FORMAT(fecha,"%d/%m/%Y") as fecha '  
     query+='FROM conductores,Reportes '  
     query+='WHERE conductores.idconductor=Reportes.idconductor'  
     console.log(query)  
