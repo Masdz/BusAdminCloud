@@ -36,21 +36,17 @@ app.use(express.static(path.join(__dirname,'Admin')))
 setInterval(function () {
     var val = tmap.values()  
     var key = tmap.keys()  
-    console.log("Iniciando validacion")  
     for (var i = 0 ;  i < tmap.size ;  i++) {
         console.log("Validando " + i + "/" + tmap.size)  
         if (val[i] === '1') {
             tmap.set(key[i], '0')  
-            console.log("un elemento podria ser eliminado")  
         } else if (val[i] === '0') {
             map.delete(key[i])  
             tmap.delete(key[i])  
-            console.log("se elimino un elemento")  
         } else {
-            console.log("prro kha")  
+            console.log("prro kha?")  
         }
     }
-    console.log("validacion finalizada")  
 }, 1200000)  
 //},30000 )  
 app.get('/',function(req,res){
