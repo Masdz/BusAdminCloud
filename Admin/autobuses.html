@@ -102,6 +102,28 @@
     <div id="confirmacion">
         <script src="secciones/modalconfirmacion/modalconfirmacion.js"></script>
     </div>
+    <div class="modal fade" id="mmodificar" tabindex="-1" role="dialog" aria-lacbelledby="mmodificar" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modificarModal">Modificar autobus</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Placa</label>
+                        <input type="text" class="form-control" id="modplaca" placeholder="Placa">
+                        <label>Ruta</label>
+                        <select class="form-control" id="modruta"></select>
+                    </div>
+                    <button class="btn btn-primary" data-dismiss="modal" onclick="modificar()">Aceptar</button>
+                    <button class="btn btn-secundary" type="button" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <p id="idItem" style="visibility: hidden; height: 0px;"></p>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
