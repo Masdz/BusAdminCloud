@@ -1,0 +1,5 @@
+12	Toluca	Tenango	1	1
+12	Tenango	Toluca	2	2
+8	Tenango	Toluca	3	3
+9	Toluca	Tenango	4	4
+9	Tenango	Toluca	5	5

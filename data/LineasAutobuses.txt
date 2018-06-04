@@ -1,0 +1,5 @@
+1	Flecha roja
+2	Primero de mayo
+3	Teo
+4	Aguila
+5	Caminante

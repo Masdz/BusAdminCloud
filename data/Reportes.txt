@@ -1,0 +1,5 @@
+2018/03/05 22:02:37	El conductor conduce muy rapido	1
+2018/03/05 22:02:37	El conductor conduce muy lento	1
+2018/03/05 22:02:37	El conductor me trato mal	1
+2018/03/05 22:02:37	Los asientos estan rotos	1
+2018/03/05 22:02:37	La ventana esta rota	1
