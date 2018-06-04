@@ -16,6 +16,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <link rel="shortcut icon" href="bot.ico" type="image/x-icon">
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -34,7 +35,25 @@
             </ol>
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-table"></i> conductores</div>
+                    <i class="fa fa-table"></i> Agregar conductor</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" id="ftnombre" placeholder="Nombre">
+                        <label>Apellido Paterno</label>
+                        <input type="text" class="form-control" id="ftapellidop" placeholder="Apellido Paterno">
+                        <label>Apellido Materno</label>
+                        <input type="text" class="form-control" id="ftapellidom" placeholder="Apellido Materno">
+                        <label>Correo</label>
+                        <input type="text" class="form-control" id="ftcorreo" placeholder="Correo">
+                    </div>
+                    <button class="btn btn-primary" onclick="registrarConductor()">Agregar Conductor</button>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-table"></i> Conductores</div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -45,6 +64,7 @@
                                     <th>Apellido Paterno</th>
                                     <th>Apellido Materno</th>
                                     <th>Correo</th>
+                                    <th>Eliminar</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -54,6 +74,7 @@
                                     <th>Apellido Paterno</th>
                                     <th>Apellido Materno</th>
                                     <th>Correo</th>
+                                    <th>Eliminar</th>
                                 </tr>
                             </tfoot>
                             <tbody id="tabla">
@@ -61,13 +82,11 @@
                             </tbody>
                         </table>
                         <button class="btn btn-primary" onclick="actualizarConductores()">Actualizar</button>
-                        <button class="btn btn-primary" onclick="actualizarConductores()">Añadir</button>
-
-                        <br/>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- /.container-fluid-->
@@ -83,6 +102,10 @@
     <div id="modal">
         <script src="secciones/modal/modal.js"></script>
     </div>
+    <div id="confirmacion">
+        <script src="secciones/modalconfirmacion/modalconfirmacion.js"></script>
+    </div>
+    <p id="idItem" style="visibility: hidden; height: 0px;"></p>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

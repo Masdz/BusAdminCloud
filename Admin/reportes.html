@@ -31,53 +31,37 @@
                 <li class="breadcrumb-item">
                     <a href="index.html">Inicio</a>
                 </li>
-                <li class="breadcrumb-item active">Autobuses</li>
+                <li class="breadcrumb-item active">Reportes</li>
             </ol>
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-table"></i> Registrar Autobus</div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <label>Numero de autobus</label>
-                        <input type="number" class="form-control" id="ftnoautobus" placeholder="No. Autobus">
-                        <label>Placa</label>
-                        <input type="text" class="form-control" id="ftplaca" placeholder="Placa">
-                        <label>Ruta</label>
-                        <select class="form-control" id="selectruta">
-                        </select>
-                    </div>
-                    <button class="btn btn-primary" onclick="registrarAutobus()">Agregar Autobus</button>
-                </div>
-            </div>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-table"></i> Autobuses</div>
+                    <i class="fa fa-table"></i> Reportes hacia los conductores</div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>No. Autobus</th>
-                                    <th>Placa</th>
-                                    <th>Ruta</th>
-                                    <th>Total de viajes realizados</th>
-                                    <th>Eliminar</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido paterno</th>
+                                    <th>Apellido Materno</th>
+                                    <th>Motivo</th>
+                                    <th>fecha</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>No. Autobus</th>
-                                    <th>Placa</th>
-                                    <th>Ruta</th>
-                                    <th>Total de viajes realizados</th>
-                                    <th>Eliminar</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido paterno</th>
+                                    <th>Apellido Materno</th>
+                                    <th>Motivo</th>
+                                    <th>fecha</th>
                                 </tr>
                             </tfoot>
                             <tbody id="tabla">
-                                <script src="controladores/autobuses/tabla.js"></script>
+                                <script src="controladores/reportes/tabla.js"></script>
                             </tbody>
                         </table>
-                        <button class="btn btn-primary" onclick="actualizarAutobuses()">Actualizar</button>
+                        <button class="btn btn-primary" onclick="actualizarReportes()">Actualizar</button>
                         <br/>
                     </div>
                 </div>
@@ -99,10 +83,6 @@
     <div id="modal">
         <script src="secciones/modal/modal.js"></script>
     </div>
-    <div id="confirmacion">
-        <script src="secciones/modalconfirmacion/modalconfirmacion.js"></script>
-    </div>
-    <p id="idItem" style="visibility: hidden; height: 0px;"></p>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
