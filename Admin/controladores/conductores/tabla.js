@@ -18,6 +18,7 @@ function actualizarConductores() {
     }
     document.getElementById("tabla").innerHTML = tabla;
 }
+//Hola
 
 function registrarConductor() {
     var nombre = document.getElementById("ftnombre").value;
