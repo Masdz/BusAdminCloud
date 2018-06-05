@@ -453,9 +453,12 @@ app.post('/MODIFICARCONDUCTOR', function (req, res) {
     query+= "idconductor="+idconductor+"," 
     query+= "nombre='"+nombre+ "'," 
     query+= "apellidoP='"+apellidoP+ "'," 
-    query+= "apellidoM='"+apellidoM+ "'," 
-    query+= "email='"+email+ "' " 
+    query+= "apellidoM='"+apellidoM+ "' " 
+    if(email!="none"){
+        query+= ",email='"+email+ "' " 
+    }
     query+= "WHERE idconductor="+idconductor 
+    console.log(query);
     conexion.query(query,(error,result)=>{
         if(error!=undefined&&error!=null){
             res.status(409).send('Error al modificar conductor')    
@@ -470,6 +473,7 @@ app.post('/MODIFICARCONDUCTOR', function (req, res) {
 app.post('/MODIFICARAUTOBUS', function (req, res) {
     const {Numeroautobus,placa,idruta}=req.body  
     var query="UPDATE Autobuses SET placa='"+placa+"', idruta="+idruta+" WHERE Numeroautobus="+Numeroautobus 
+    console.log(query);
     conexion.query(query,(error,result)=>{
         if(error!=undefined&&error!=null){
             res.status(409).send('Error al modificar autobus')   
@@ -483,13 +487,14 @@ app.post('/MODIFICARAUTOBUS', function (req, res) {
 
 app.post('/MODIFICARRUTA', function (req, res) {
     const {idruta,origen,destino}=req.body  
-    var query="UPDATE conductores SET "
-    query+= "origen="+idconductor+"," 
-    query+= "destino='"+nombre+ "'" 
-    query+= "WHERE idconductor="+idconductor 
+    var query="UPDATE rutas SET "
+    query+= "origen='"+origen+"'," 
+    query+= "destino='"+destino+ "' " 
+    query+= "WHERE idruta="+idruta 
+    console.log(query);
     conexion.query(query,(error,result)=>{
         if(error!=undefined&&error!=null){
-            res.status(409).send('Error al modificar conductor')    
+            res.status(409).send('Error al modificar ruta')    
         }else{
             res.status(200).send('Exito')  
         }
