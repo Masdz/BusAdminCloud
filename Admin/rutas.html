@@ -57,7 +57,7 @@
                                     <th>Id</th>
                                     <th>Origen</th>
                                     <th>Destino</th>
-                                    <th>Eliminar</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -65,7 +65,7 @@
                                     <th>Id</th>
                                     <th>Origen</th>
                                     <th>Destino</th>
-                                    <th>Eliminar</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </tfoot>
                             <tbody id="tabla">
@@ -95,7 +95,28 @@
     <div id="confirmacion">
         <script src="secciones/modalconfirmacion/modalconfirmacion.js"></script>
     </div>
-
+    <div class="modal fade" id="mmodificar" tabindex="-1" role="dialog" aria-lacbelledby="mmodificar" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modificarModal">Modificar ruta</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Origen</label>
+                        <input type="text" class="form-control" id="modorigen" placeholder="Origen">
+                        <label>Destino</label>
+                        <input type="text" class="form-control" id="moddestino" placeholder="Destino">
+                    </div>
+                    <button class="btn btn-primary" data-dismiss="modal" onclick="modificar()">Aceptar</button>
+                    <button class="btn btn-secundary" type="button" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <p id="idItem" style="visibility: hidden; height: 0px;"></p>
 
     <div id="alertaDiv">

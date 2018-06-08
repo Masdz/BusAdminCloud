@@ -82,7 +82,7 @@ app.get('/PROBAR', function(req, res) {
 
 
 app.get('/AUTOBUSES', function(req, res) {
-    var query = 'SELECT  autobuses.Numeroautobus,placa,idlinea,origen,destino,count(busconductores.Numeroautobus) as total '
+    var query='SELECT  autobuses.Numeroautobus,placa,autobuses.idruta,idlinea,origen,destino,count(busconductores.Numeroautobus) as total '  
     query += 'FROM autobuses,rutas,busconductores '
     query += 'where autobuses.idruta=rutas.idruta '
     query += 'and busconductores.Numeroautobus=autobuses.Numeroautobus '
@@ -484,6 +484,63 @@ app.post('/REGISTRO', function(req, res) {
         console.log('error: ' + error)
     })
 })
+
+app.post('/MODIFICARCONDUCTOR', function (req, res) {
+    const {idconductor,nombre,apellidoP,apellidoM,email}=req.body  
+    var query="UPDATE conductores SET "
+    query+= "idconductor="+idconductor+"," 
+    query+= "nombre='"+nombre+ "'," 
+    query+= "apellidoP='"+apellidoP+ "'," 
+    query+= "apellidoM='"+apellidoM+ "' " 
+    if(email!="none"){
+        query+= ",email='"+email+ "' " 
+    }
+    query+= "WHERE idconductor="+idconductor 
+    console.log(query);
+    conexion.query(query,(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(409).send('Error al modificar conductor')    
+        }else{
+            res.status(200).send('Exito')  
+        }
+        console.log('resultado: '+result)  
+        console.log('error: '+error)  
+    })  
+})
+
+app.post('/MODIFICARAUTOBUS', function (req, res) {
+    const {Numeroautobus,placa,idruta}=req.body  
+    var query="UPDATE Autobuses SET placa='"+placa+"', idruta="+idruta+" WHERE Numeroautobus="+Numeroautobus 
+    console.log(query);
+    conexion.query(query,(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(409).send('Error al modificar autobus')   
+        }else{
+            res.status(200).send('Exito')  
+        }
+        console.log('resultado: '+result)  
+        console.log('error: '+error)  
+    })  
+})
+
+app.post('/MODIFICARRUTA', function (req, res) {
+    const {idruta,origen,destino}=req.body  
+    var query="UPDATE rutas SET "
+    query+= "origen='"+origen+"'," 
+    query+= "destino='"+destino+ "' " 
+    query+= "WHERE idruta="+idruta 
+    console.log(query);
+    conexion.query(query,(error,result)=>{
+        if(error!=undefined&&error!=null){
+            res.status(409).send('Error al modificar ruta')    
+        }else{
+            res.status(200).send('Exito')  
+        }
+        console.log('resultado: '+result)  
+        console.log('error: '+error)  
+    })  
+})
+
 
 //app.listen(3000)  
 var server = app.listen((process.env.PORT || 5000), function() {
