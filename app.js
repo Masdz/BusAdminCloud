@@ -436,6 +436,27 @@ app.post('/VERIFYEMAIL2', function(req, res) {
     })
 })
 
+app.post('/VERIFYEMAIL3', function(req, res) {
+    const { tabla, email, idconductor } = req.body
+    var query = "SELECT email FROM " + tabla + " WHERE email='" + email + "' AND idconductor!='" + idconductor + "'"
+    console.log(query)
+    conexion.query(query, (error, result) => {
+        if (error != undefined && error != null) {
+            res.status(500).send("Error en la consulta:" + error)
+            console.log("Error: " + error)
+        } else {
+            if (result[0] == undefined) {
+                res.status(200).send('exitoo')
+            } else {
+                res.status(418).send('El E-mail ya esta registrado')
+            }
+            console.log('resultado11: ' + result)
+            console.log('error11: ' + error)
+                //console.log(result[0])
+        }
+    })
+})
+
 app.post('/LOGIN', function(req, res) {
     const { contrasena, email } = req.body
     var query = "SELECT email,contrasena FROM administradores WHERE email='" + email + "' AND contrasena='" + contrasena + "'"
@@ -550,7 +571,7 @@ app.post('/MODIFICARCONDUCTOR', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al modificar conductor')
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Conductor modificado correctamente.')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)

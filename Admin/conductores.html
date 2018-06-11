@@ -121,6 +121,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <div class="alert alert-danger" id="alertaErrorMod" role="alert" style="display:none;">
+                            <!--  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                            <strong>¡Error!</strong>
+                            <p id="mensajeEMod"></p>
+                        </div>
                         <label>Nombre</label>
                         <input type="text" class="form-control" id="modnombre" placeholder="Nombre">
                         <label>Apellido Paterno</label>
@@ -130,8 +135,8 @@
                         <label>Correo</label>
                         <input type="text" class="form-control" id="modcorreo" placeholder="Correo">
                     </div>
-                    <button class="btn btn-primary" data-dismiss="modal" onclick="modificar()">Aceptar</button>
-                    <button class="btn btn-secundary" type="button" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary" onclick="modificar()">Aceptar</button>
+                    <button class="btn btn-secundary" type="button" data-dismiss="modal" onclick="limpiar()">Cancelar</button>
                 </div>
             </div>
         </div>

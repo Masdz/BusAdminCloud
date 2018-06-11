@@ -40,9 +40,12 @@ function registrarConductor() {
     if (nombre == "" || nombre == null || apaterno == "" || apaterno == null || amaterno == "" || amaterno == null || email == "" || email == null) {
         document.getElementById("mensajeE").innerHTML = "Completa todos los campos.";
         $('#alertaError').show();
+        $('#mmodificar').modal('show'); // abrir
+        limpiar();
     } else if (!emailRegex.test(email)) {
         document.getElementById("mensajeE").innerHTML = "Ingresa una dirección de E-mail valida.";
         $('#alertaError').show();
+        $('#mmodificar').modal('show'); // abrir
     } else {
         var request = new XMLHttpRequest();
         request.open("POST", "VERIFYEMAIL2", true);
@@ -56,12 +59,17 @@ function registrarConductor() {
                     console.log("Segundo if");
                     document.getElementById("mensajeE").innerHTML = "El E-mail ya está registrado, intenta con otro.";
                     $('#alertaError').show();
+                    $('#mmodificar').modal('show'); // abrir
                 } else if (request.status == 200) {
                     guardarDatos();
                 }
             }
         }
     }
+}
+
+function limpiar() {
+    $('#alertaErrorMod').hide();
 }
 
 function guardarDatos() {
@@ -113,7 +121,48 @@ function inimod(id) {
     setid(id);
 }
 
-function modificar() {
+function validarDatos() {
+    var id = getid();
+    var idconductor = res[id].idconductor;
+    var nombre = document.getElementById("modnombre").value;
+    var apellidoP = document.getElementById("modapellidop").value;
+    var apellidoM = document.getElementById("modapellidom").value;
+    var email = document.getElementById("modcorreo").value;
+    var email2 = email;
+    var tabla = "conductores";
+    var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    if (nombre == "" || nombre == null || apellidoP == "" || apellidoP == null || apellidoM == "" || apellidoM == null || email == "" || email == null) {
+        document.getElementById("mensajeEMod").innerHTML = "Completa todos los campos.";
+        $('#alertaErrorMod').show();
+    } else if (!emailRegex.test(email)) {
+        document.getElementById("mensajeEMod").innerHTML = "Ingresa una dirección de E-mail valida.";
+        $('#alertaErrorMod').show();
+    } else {
+        var id = getid();
+        var idconductor = res[id].idconductor;
+        var request = new XMLHttpRequest();
+        request.open("POST", "VERIFYEMAIL3", true);
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        request.send(JSON.stringify({ tabla, email, idconductor }));
+        request.onreadystatechange = function() {
+            console.log("State paps");
+            if (request.readyState == 4) {
+                console.log("Primer if");
+                if (request.status == 418) {
+                    console.log("Segundo if");
+                    document.getElementById("mensajeEMod").innerHTML = "El E-mail ya está registrado, intenta con otro.";
+                    $('#alertaErrorMod').show();
+                    //$('#mmodificar').modal('show'); // abrir
+                } else if (request.status == 200) {
+                    guardarModificacion();
+                    console.log("Si entro");
+                }
+            }
+        }
+    }
+}
+
+function guardarModificacion() {
     var id = getid();
     var idconductor = res[id].idconductor;
     var nombre = document.getElementById("modnombre").value;
@@ -125,9 +174,12 @@ function modificar() {
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.onreadystatechange = function() {
         if (request.readyState == 4) {
-            alert(request.responseText);
+            alerta("Éxito", request.responseText);
         }
+        limpiar();
         actualizarConductores();
+        $('#mmodificar').modal('hide');
+        $('#modal').hide();
     }
     request.send(JSON.stringify({
         idconductor,
@@ -136,5 +188,15 @@ function modificar() {
         apellidoM,
         email,
     }));
+}
+
+function modificar() {
+
+    /*   var nombre = document.getElementById("modnombre").value;
+      var apellidoP = document.getElementById("modapellidop").value;
+      var apellidoM = document.getElementById("modapellidom").value;
+      var email = document.getElementById("modcorreo").value; */
+    validarDatos();
+
 }
 actualizarConductores();
