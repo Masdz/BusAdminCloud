@@ -82,7 +82,7 @@ app.get('/PROBAR', function(req, res) {
 
 
 app.get('/AUTOBUSES', function(req, res) {
-    var query='SELECT  autobuses.Numeroautobus,placa,autobuses.idruta,idlinea,origen,destino,count(busconductores.Numeroautobus) as total '  
+    var query = 'SELECT  autobuses.Numeroautobus,placa,autobuses.idruta,idlinea,origen,destino,count(busconductores.Numeroautobus) as total '
     query += 'FROM autobuses,rutas,busconductores '
     query += 'where autobuses.idruta=rutas.idruta '
     query += 'and busconductores.Numeroautobus=autobuses.Numeroautobus '
@@ -389,10 +389,32 @@ app.post('/REGISTRARADMINISTRADOR', function(req, res) {
         } else {
             res.status(200).send('Exito')
         }
-        console.log('resultado: ' + result)
-        console.log('error: ' + error)
+        console.log('nommaes we: ' + result)
+        console.log('>:v : ' + error)
     })
 })
+
+app.post('/VERIFYEMAIL', function(req, res) {
+    const { email } = req.body
+    var query = "SELECT email FROM administradores WHERE email='" + email + "'"
+    console.log(query)
+    conexion.query(query, (error, result) => {
+        if (error != undefined && error != null) {
+            res.status(500).send("Error en la consulta:" + error)
+            console.log("Error: " + error)
+        } else {
+            if (result[0] == undefined) {
+                res.status(200).send('exitoo')
+            } else {
+                res.status(418).send('El E-mail ya esta registrado')
+            }
+            console.log('resultado11: ' + result)
+            console.log('error11: ' + error)
+                //console.log(result[0])
+        }
+    })
+})
+
 
 app.post('/ELIMINARVIAJE', function(req, res) {
     const { id } = req.body
@@ -485,60 +507,60 @@ app.post('/REGISTRO', function(req, res) {
     })
 })
 
-app.post('/MODIFICARCONDUCTOR', function (req, res) {
-    const {idconductor,nombre,apellidoP,apellidoM,email}=req.body  
-    var query="UPDATE conductores SET "
-    query+= "idconductor="+idconductor+"," 
-    query+= "nombre='"+nombre+ "'," 
-    query+= "apellidoP='"+apellidoP+ "'," 
-    query+= "apellidoM='"+apellidoM+ "' " 
-    if(email!="none"){
-        query+= ",email='"+email+ "' " 
+app.post('/MODIFICARCONDUCTOR', function(req, res) {
+    const { idconductor, nombre, apellidoP, apellidoM, email } = req.body
+    var query = "UPDATE conductores SET "
+    query += "idconductor=" + idconductor + ","
+    query += "nombre='" + nombre + "',"
+    query += "apellidoP='" + apellidoP + "',"
+    query += "apellidoM='" + apellidoM + "' "
+    if (email != "none") {
+        query += ",email='" + email + "' "
     }
-    query+= "WHERE idconductor="+idconductor 
+    query += "WHERE idconductor=" + idconductor
     console.log(query);
-    conexion.query(query,(error,result)=>{
-        if(error!=undefined&&error!=null){
-            res.status(409).send('Error al modificar conductor')    
-        }else{
-            res.status(200).send('Exito')  
+    conexion.query(query, (error, result) => {
+        if (error != undefined && error != null) {
+            res.status(409).send('Error al modificar conductor')
+        } else {
+            res.status(200).send('Exito')
         }
-        console.log('resultado: '+result)  
-        console.log('error: '+error)  
-    })  
+        console.log('resultado: ' + result)
+        console.log('error: ' + error)
+    })
 })
 
-app.post('/MODIFICARAUTOBUS', function (req, res) {
-    const {Numeroautobus,placa,idruta}=req.body  
-    var query="UPDATE Autobuses SET placa='"+placa+"', idruta="+idruta+" WHERE Numeroautobus="+Numeroautobus 
+app.post('/MODIFICARAUTOBUS', function(req, res) {
+    const { Numeroautobus, placa, idruta } = req.body
+    var query = "UPDATE Autobuses SET placa='" + placa + "', idruta=" + idruta + " WHERE Numeroautobus=" + Numeroautobus
     console.log(query);
-    conexion.query(query,(error,result)=>{
-        if(error!=undefined&&error!=null){
-            res.status(409).send('Error al modificar autobus')   
-        }else{
-            res.status(200).send('Exito')  
+    conexion.query(query, (error, result) => {
+        if (error != undefined && error != null) {
+            res.status(409).send('Error al modificar autobus')
+        } else {
+            res.status(200).send('Exito')
         }
-        console.log('resultado: '+result)  
-        console.log('error: '+error)  
-    })  
+        console.log('resultado: ' + result)
+        console.log('error: ' + error)
+    })
 })
 
-app.post('/MODIFICARRUTA', function (req, res) {
-    const {idruta,origen,destino}=req.body  
-    var query="UPDATE rutas SET "
-    query+= "origen='"+origen+"'," 
-    query+= "destino='"+destino+ "' " 
-    query+= "WHERE idruta="+idruta 
+app.post('/MODIFICARRUTA', function(req, res) {
+    const { idruta, origen, destino } = req.body
+    var query = "UPDATE rutas SET "
+    query += "origen='" + origen + "',"
+    query += "destino='" + destino + "' "
+    query += "WHERE idruta=" + idruta
     console.log(query);
-    conexion.query(query,(error,result)=>{
-        if(error!=undefined&&error!=null){
-            res.status(409).send('Error al modificar ruta')    
-        }else{
-            res.status(200).send('Exito')  
+    conexion.query(query, (error, result) => {
+        if (error != undefined && error != null) {
+            res.status(409).send('Error al modificar ruta')
+        } else {
+            res.status(200).send('Exito')
         }
-        console.log('resultado: '+result)  
-        console.log('error: '+error)  
-    })  
+        console.log('resultado: ' + result)
+        console.log('error: ' + error)
+    })
 })
 
 
