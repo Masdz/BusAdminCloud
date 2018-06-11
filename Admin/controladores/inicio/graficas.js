@@ -13,10 +13,7 @@ function getDatos() {
   request.open('GET', 'INGRESOS', true);
   request.onreadystatechange = function () {
     if (request.readyState == 4) {
-      if (request.status == 403) {
-        console.log("No estas registrado");
-        window.open("login.html", "_self");
-      } else if (request.status == 200) {
+      if (request.status == 200) {
         console.log("Todo bien");
         var res = JSON.parse(request.responseText);
         var vals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

@@ -14,3 +14,17 @@ function logout(){
     }
     request.send();
 }
+
+function autenticar(){
+    var request=new XMLHttpRequest();
+    request.open("POST","COMPROBARSESIONADMIN",false);
+    request.onreadystatechange=()=>{
+        if(request.readyState==4){
+            if(request.status==403){
+                window.open("login.html", "_self");
+            }
+        }
+    }
+    request.send();
+}
+autenticar();
