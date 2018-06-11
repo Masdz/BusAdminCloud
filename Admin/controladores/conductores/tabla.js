@@ -40,12 +40,10 @@ function registrarConductor() {
     if (nombre == "" || nombre == null || apaterno == "" || apaterno == null || amaterno == "" || amaterno == null || email == "" || email == null) {
         document.getElementById("mensajeE").innerHTML = "Completa todos los campos.";
         $('#alertaError').show();
-        $('#mmodificar').modal('show'); // abrir
         limpiar();
     } else if (!emailRegex.test(email)) {
         document.getElementById("mensajeE").innerHTML = "Ingresa una dirección de E-mail valida.";
         $('#alertaError').show();
-        $('#mmodificar').modal('show'); // abrir
     } else {
         var request = new XMLHttpRequest();
         request.open("POST", "VERIFYEMAIL2", true);
@@ -59,7 +57,6 @@ function registrarConductor() {
                     console.log("Segundo if");
                     document.getElementById("mensajeE").innerHTML = "El E-mail ya está registrado, intenta con otro.";
                     $('#alertaError').show();
-                    $('#mmodificar').modal('show'); // abrir
                 } else if (request.status == 200) {
                     guardarDatos();
                 }
