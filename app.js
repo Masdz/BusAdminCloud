@@ -415,6 +415,27 @@ app.post('/VERIFYEMAIL', function(req, res) {
     })
 })
 
+app.post('/VERIFYEMAIL2', function(req, res) {
+    const { tabla, email } = req.body
+    var query = "SELECT email FROM " + tabla + " WHERE email='" + email + "'"
+    console.log(query)
+    conexion.query(query, (error, result) => {
+        if (error != undefined && error != null) {
+            res.status(500).send("Error en la consulta:" + error)
+            console.log("Error: " + error)
+        } else {
+            if (result[0] == undefined) {
+                res.status(200).send('exitoo')
+            } else {
+                res.status(418).send('El E-mail ya esta registrado')
+            }
+            console.log('resultado11: ' + result)
+            console.log('error11: ' + error)
+                //console.log(result[0])
+        }
+    })
+})
+
 app.post('/LOGIN', function(req, res) {
     const { contrasena, email } = req.body
     var query = "SELECT email,contrasena FROM administradores WHERE email='" + email + "' AND contrasena='" + contrasena + "'"

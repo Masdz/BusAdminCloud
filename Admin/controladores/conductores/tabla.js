@@ -26,11 +26,16 @@ function actualizarConductores() {
     document.getElementById("tabla").innerHTML = tabla;
 }
 
+function refresh() {
+    window.open("conductores.html", "_self");
+}
+
 function registrarConductor() {
     var nombre = document.getElementById("ftnombre").value;
     var apaterno = document.getElementById("ftapellidop").value;
     var amaterno = document.getElementById("ftapellidom").value;
     var email = document.getElementById("ftcorreo").value;
+    var tabla = "conductores";
     var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     if (nombre == "" || nombre == null || apaterno == "" || apaterno == null || amaterno == "" || amaterno == null || email == "" || email == null) {
         document.getElementById("mensajeE").innerHTML = "Completa todos los campos.";
@@ -40,18 +45,40 @@ function registrarConductor() {
         $('#alertaError').show();
     } else {
         var request = new XMLHttpRequest();
-        request.open("POST", "REGISTRARCONDUCTOR", true);
+        request.open("POST", "VERIFYEMAIL2", true);
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        request.send(JSON.stringify({ nombre, apaterno, amaterno, email, contrasena: null }));
+        request.send(JSON.stringify({ tabla, email }));
         request.onreadystatechange = function() {
+            console.log("State paps");
             if (request.readyState == 4) {
-                alerta("Registrando...", request.responseText);
+                console.log("Primer if");
+                if (request.status == 418) {
+                    console.log("Segundo if");
+                    document.getElementById("mensajeE").innerHTML = "El E-mail ya está registrado, intenta con otro.";
+                    $('#alertaError').show();
+                } else if (request.status == 200) {
+                    guardarDatos();
+                }
             }
-            actualizarConductores();
         }
-
     }
+}
 
+function guardarDatos() {
+    var nombre = document.getElementById("ftnombre").value;
+    var apaterno = document.getElementById("ftapellidop").value;
+    var amaterno = document.getElementById("ftapellidom").value;
+    var email = document.getElementById("ftcorreo").value;
+    var request = new XMLHttpRequest();
+    request.open("POST", "REGISTRARCONDUCTOR", true);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.send(JSON.stringify({ nombre, apaterno, amaterno, email, contrasena: null }));
+    request.onreadystatechange = function() {
+        if (request.readyState == 4) {
+            alerta("Registrando...", request.responseText);
+        }
+        actualizarConductores();
+    }
 }
 
 function setid(val) {
