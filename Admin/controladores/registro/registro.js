@@ -77,6 +77,7 @@ function guardarDatos() {
                     /*  document.getElementById("mensajeE").innerHTML = "Registrado con exito.";
                      $('#alertaError').show(); */
                     ok = false;
+                    window.open("login.html", "_self");
                 } else {
                     alerta("Error", "Ha ocurrido un error, intentalo de nuevo.");
                     ok = false;
