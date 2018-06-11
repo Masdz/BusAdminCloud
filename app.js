@@ -9,6 +9,11 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var path = require('path')
 var conexionBD = require(__dirname + '/mysql/bdConexion')
+var sesion = require('express-session')
+
+const ADMINISTRADOR=1;
+const CONDUCTOR=2;
+const PASAJERO=3;
 
 var  map =  new  HashMap()
 var tmap = new HashMap()
@@ -31,7 +36,11 @@ map.clear()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'Admin')))
-
+app.use(sesion({
+    secret:'Hola Paps',
+    resave:true,
+    saveUninitialized:true
+}))
 
 setInterval(function() {
         var val = tmap.values()
@@ -48,9 +57,28 @@ setInterval(function() {
             }
         }
     }, 1200000)
-    //},30000 )  
+    //},30000 )
+    
+function isSesionAdminIniciada(req){
+    if(req.session.userId!=undefined && req.session.userId!=null){
+        if(req.session.userType==ADMINISTRADOR){
+            return true;
+        }else{
+            console.log("Anuma me hakiaron :'v");
+            return false;
+        }
+    }else{
+        console.log("Usuario no ingresado");
+        return false;
+    }
+}
+    
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/Admin/login.html')
+    if(isSesionAdminIniciada(req)){
+        res.sendFile(__dirname + '/Admin/inicio.html')
+    }else{
+        res.sendFile(__dirname + '/Admin/login.html')
+    }
 })
 
 app.get('/OBTENERCORDENADAS/:id?', function(req, res, next) {
@@ -77,7 +105,8 @@ app.get('/OBTENERCORDENADAS2', function(req, res, next) {
 })
 
 app.get('/PROBAR', function(req, res) {
-    res.status(200).send("Hola 2")
+    var v=req.session.visitas=req.session.visitas?req.session.visitas+1:1
+    res.status(200).send("Parece que esta es su "+v+"° visita")
 })
 
 
@@ -166,15 +195,26 @@ app.get('/RUTAS', function(req, res) {
 })
 
 app.get('/INGRESOS', function(req, res) {
-    var query = 'SELECT recolectado,MONTH(fechaHora) as mes FROM busconductores WHERE fechaHora>DATE_SUB(now(),INTERVAL 1 YEAR) ORDER By fechaHora'
-    console.log(query)
-    conexion.query(query, (error, result) => {
-        if (error != undefined && error != null) {
-            res.status(500).send("Error en la consulta:" + error)
-        } else {
-            res.status(200).send(result)
+    console.log(req.session.body);
+    if(req.session.userId!=undefined&&req.session.userId!=null){
+        if(req.session.userType==ADMINISTRADOR){
+            var query = 'SELECT recolectado,MONTH(fechaHora) as mes FROM busconductores WHERE fechaHora>DATE_SUB(now(),INTERVAL 1 YEAR) ORDER By fechaHora'
+            console.log(query)
+            conexion.query(query, (error, result) => {
+                if (error != undefined && error != null) {
+                    res.status(500).send("Error en la consulta:" + error)
+                } else {
+                    res.status(200).send(result)
+                }
+            })
+        }else{
+            res.status(403).send('Anuma este prro jugandole al hacker >:v')
+            console.log("Usuario jugandole al hacker")
         }
-    })
+    }else{
+        res.status(403).send('Parece que no ha ingresado aún')
+        console.log("Usuario no ingreso")
+    }
 })
 
 app.get('/VIAJESHISTORIAL', function(req, res) {
@@ -459,7 +499,7 @@ app.post('/VERIFYEMAIL3', function(req, res) {
 
 app.post('/LOGIN', function(req, res) {
     const { contrasena, email } = req.body
-    var query = "SELECT email,contrasena FROM administradores WHERE email='" + email + "' AND contrasena='" + contrasena + "'"
+    var query = "SELECT * FROM administradores WHERE email='" + email + "' AND contrasena='" + contrasena + "'"
     console.log(query);
     conexion.query(query, (error, result) => {
         if (error != undefined && error != null) {
@@ -468,6 +508,8 @@ app.post('/LOGIN', function(req, res) {
             if (result[0] == undefined) {
                 res.status(404).send('Usuario o contraseña incorrectos')
             } else {
+                req.session.userId=result[0].idAdministrador
+                req.session.userType=ADMINISTRADOR;
                 res.status(200).send(result[0])
             }
             console.log(result[0])
@@ -477,6 +519,18 @@ app.post('/LOGIN', function(req, res) {
     })
 })
 
+app.post('/LOGOUT',function(req,res){
+    req.session.userId=null
+    res.status(200).send("exito")
+})
+
+app.post('/COMPROBARSESIONADMIN',function(req,res){
+    if(isSesionAdminIniciada(req)){
+        res.status(200).send("Usuario ingresado")
+    }else{
+        res.status(403).send("Usuario no ingresado")
+    }
+})
 
 app.post('/ELIMINARVIAJE', function(req, res) {
     const { id } = req.body

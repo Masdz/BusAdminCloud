@@ -10,24 +10,35 @@ var datosbuses = [];
 var maxi = 0;
 function getDatos() {
   var request = new XMLHttpRequest();
-  request.open('GET', 'INGRESOS', false);
-  request.send(null);
-  var res = JSON.parse(request.responseText);
-  var vals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-  for (var i in res) {
-    vals[res[i].mes - 1] += res[i].recolectado;
-  }
-  var mes = new Date().getMonth();
-  for (var i = 0; i < 12; i++) {
-    mes++;
-    if (mes > 11) {
-      mes = 0;
+  request.open('GET', 'INGRESOS', true);
+  request.onreadystatechange = function () {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log("Todo bien");
+        var res = JSON.parse(request.responseText);
+        var vals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        for (var i in res) {
+          vals[res[i].mes - 1] += res[i].recolectado;
+        }
+        var mes = new Date().getMonth();
+        for (var i = 0; i < 12; i++) {
+          mes++;
+          if (mes > 11) {
+            mes = 0;
+          }
+          datos.push(vals[mes]);
+          etiquetas.push(meses[mes]);
+          maxi = getMaxi(datos);
+        }
+        inigrafica();
+        initabla();
+      }else{
+        console.log("Error: "+request.responseText);
+      }
     }
-    datos.push(vals[mes]);
-    etiquetas.push(meses[mes]);
-    maxi = getMaxi(datos);
   }
+  request.send(null);
 }
 
 function getDatos2() {
@@ -36,7 +47,7 @@ function getDatos2() {
   request.send(null);
   var res = JSON.parse(request.responseText);
   for (var i in res) {
-    nbuses.push("Autobús "+res[i].Numeroautobus);
+    nbuses.push("Autobús " + res[i].Numeroautobus);
     datosbuses.push(res[i].total);
   }
 
@@ -66,7 +77,6 @@ function getLabels() {
   return labels;
 }
 function inigrafica() {
-  getDatos();
   var ctx = document.getElementById("myAreaChart");
   var myLineChart = new Chart(ctx, {
     type: 'line',
@@ -128,7 +138,7 @@ function inipastel() {
         label: "Número de viajes:",
         lineTension: 0.3,
         data: datosbuses,
-        backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745','#58a703'],
+        backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#58a703'],
       }],
     },
   });
@@ -144,6 +154,5 @@ function initabla() {
   }
   document.getElementById("tabla").innerHTML = tabla;
 }
-inigrafica();
 inipastel();
-initabla();
+getDatos();
