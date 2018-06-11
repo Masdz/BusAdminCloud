@@ -36,6 +36,11 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fa fa-table"></i> Agregar conductor</div>
+                <div class="alert alert-danger" id="alertaError" role="alert" style="display:none;">
+                    <!--  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                    <strong>¡Error!</strong>
+                    <p id="mensajeE"></p>
+                </div>
                 <div class="card-body">
                     <div class="form-group">
                         <label>Nombre</label>
@@ -45,7 +50,7 @@
                         <label>Apellido Materno</label>
                         <input type="text" class="form-control" id="ftapellidom" placeholder="Apellido Materno">
                         <label>Correo</label>
-                        <input type="text" class="form-control" id="ftcorreo" placeholder="Correo">
+                        <input type="email" class="form-control" id="ftcorreo" placeholder="Correo">
                     </div>
                     <button class="btn btn-primary" onclick="registrarConductor()">Agregar Conductor</button>
                 </div>

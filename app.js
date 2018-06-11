@@ -415,6 +415,26 @@ app.post('/VERIFYEMAIL', function(req, res) {
     })
 })
 
+app.post('/LOGIN', function(req, res) {
+    const { contrasena, email } = req.body
+    var query = "SELECT email,contrasena FROM administradores WHERE email='" + email + "' AND contrasena='" + contrasena + "'"
+    console.log(query);
+    conexion.query(query, (error, result) => {
+        if (error != undefined && error != null) {
+            res.status(409).send('Error de consulta ' + error)
+        } else {
+            if (result[0] == undefined) {
+                res.status(404).send('Usuario o contraseña incorrectos')
+            } else {
+                res.status(200).send(result[0])
+            }
+            console.log(result[0])
+        }
+        console.log('resultado: ' + result)
+        console.log('error: ' + error)
+    })
+})
+
 
 app.post('/ELIMINARVIAJE', function(req, res) {
     const { id } = req.body
@@ -463,20 +483,6 @@ app.post('/ELIMINARAUTOBUS', function(req, res) {
 app.post('/ELIMINARUTA', function(req, res) {
     const { id } = req.body
     var query = "Delete from rutas where idruta=" + id
-    conexion.query(query, (error, result) => {
-        if (error != undefined && error != null) {
-            res.status(409).send('Error al eliminar ruta ' + error)
-        } else {
-            res.status(200).send('Exito')
-        }
-        console.log('resultado: ' + result)
-        console.log('error: ' + error)
-    })
-})
-
-app.post('/LOGIN', function(req, res) {
-    const { idadmin, email } = req.body
-    var query = "SELECT email FROM administradores WHERE email=" + email
     conexion.query(query, (error, result) => {
         if (error != undefined && error != null) {
             res.status(409).send('Error al eliminar ruta ' + error)
