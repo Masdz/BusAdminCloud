@@ -367,7 +367,7 @@ app.post('/REGISTRARCONDUCTOR', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al registrar Usuario')
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Conductor registrado existosamente')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)
