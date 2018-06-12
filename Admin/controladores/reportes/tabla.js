@@ -8,7 +8,7 @@ function actualizarReportes() {
         tabla += "<tr>";
         tabla += "<td>" + res[i].nombre + "</td>";
         tabla += "<td>" + res[i].apellidoP + "</td>";
-        tabla += "<td>" + res[i].apellidoM + "-" + res[i].destino + "</td>";
+        tabla += "<td>" + res[i].apellidoM + "</td>";
         tabla += "<td>" + res[i].motivo + "</td>";
         tabla += "<td>" + res[i].fecha + "</td>";
         tabla += "</tr>";

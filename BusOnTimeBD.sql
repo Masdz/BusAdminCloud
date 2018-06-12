@@ -1,6 +1,6 @@
-DROP DATABASE  IF EXISTS busontime;
-CREATE DATABASE busontime;
-USE busontime;
+DROP DATABASE  IF EXISTS busontime3;
+CREATE DATABASE busontime3;
+USE busontime3;
 CREATE TABLE pasajeros(
 	idpasajero INT PRIMARY KEY AUTO_INCREMENT,
 	nombre varchar(60) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE conductores(
 	idconductor INT PRIMARY KEY AUTO_INCREMENT,
 	nombre VARCHAR(60) NOT NULL,
 	apellidoP VARCHAR(30),
-	apellidoM VARCHAR(30)
+	apellidoM VARCHAR(30),
 	email varchar(40) NOT NULL UNIQUE,
 	contrasena varchar(100) NOT NULL
 );
@@ -89,30 +89,95 @@ CREATE TABLE Administradores(
 	idLinea INT,
 	FOREIGN KEY(idLinea) REFERENCES lineasautobuses(idLinea)
 );
-INSERT INTO Administradores VALUES(null,"Mario","Serrano","Diaz","masdz2@hotmail.com","123456789",1);
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/pasajeros.txt' INTO TABLE pasajeros FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM pasajeros;
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/conductores.txt' INTO TABLE conductores FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM conductores;
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/rutas.txt' INTO TABLE rutas FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM rutas;
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/paradas.txt' INTO TABLE paradas FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM paradas;
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/LineasAutobuses.txt' INTO TABLE LineasAutobuses FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM LineasAutobuses;
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/autobuses.txt' INTO TABLE autobuses FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM autobuses;
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/BusConductores.txt' INTO TABLE BusConductores FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM BusConductores;
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/Pagos.txt' INTO TABLE Pagos FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM Pagos;
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/Horario.txt' INTO TABLE Horario FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM Horario;
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/RutasParadas.txt' INTO TABLE RutasParadas FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM RutasParadas;
-LOAD DATA INFILE 'C:/Users/masdz/Desktop/UAPT/BDA/data/Reportes.txt' INTO TABLE Reportes FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
-SELECT * FROM Reportes;
-USE busontime
+INSERT INTO pasajeros VALUES
+(1, 'Roberto', 'Zepeda', 'Constantino', 'rmail@mail.com', 'jfladfklj'),
+(2, 'Pablo', 'Juarez', 'Perez', 'pab123@mail.com', 'ksajdflkj'),
+(3, 'Luis', 'Gonzalez', 'Mejia', 'lgm250@mail.com', 'asjhdfkjhuie'),
+(4, 'Ana', 'Mejia', 'Lopez', 'anita32@mail.com', 'hkvhhfd'),
+(5, 'Maria', 'Lopez', 'Juarez', 'mari99@mail.com', 'asjfhhdsf');
+INSERT INTO conductores VALUES
+(1, 'Pablito', 'Rodrígez', 'Rodrígez', 'ajsfhja@ajlkfj.com', 'dfkjsahfjk'),
+(2, 'Rodri', 'Rodrígez', 'Perez', 'sdafat@asdf.com', 'ajksdfbjbk'),
+(3, 'Hugo', 'Plata', 'Romero', 'huhsua@hugh.com', 'jadksfk'),
+(4, 'Pedro', 'Rodrígez', 'Rodrígez', 'gijiogj@jagji.com', 'asdfhiuoh'),
+(5, 'Pedro', 'Goméz', 'Mejia', 'oiuiou@huaihre.com', 'ajfhhuhjhj'),
+(6, 'Roberto', 'Mejia', 'Torres', 'ajsdf@jaklfj.com', NULL),
+(7, 'joselito5', 'pancracio', 'ramirez', 'joselito@mail.com', NULL);
+INSERT INTO rutas VALUES
+(1, 'Tenango', 'Toluca'),
+(2, 'Santiago', 'Toluca'),
+(3, 'Calimaya', 'Toluca'),
+(4, 'Santiago', 'Tenango'),
+(5, 'DF', 'Cuernavaca'),
+(6, 'Calimaya', 'Tenango'),
+(7, 'Chapultdpdc', 'Toluca');
+INSERT INTO paradas VALUES
+(1, 1.3872, 2.34523, 'Tenango'),
+(2, 1.32432, 2.59837, 'Toluca'),
+(3, 1.34235, 2.41898, 'Mexicalzingo'),
+(4, 1.75929, 2.41236, 'Santiago'),
+(5, 1.24355, 2.41234, 'Desconocido');
+INSERT INTO lineasautobuses VALUES
+(1, 'Flecha roja'),
+(2, 'Primero de mayo'),
+(3, 'Teo'),
+(4, 'Aguila'),
+(5, 'Caminante');
+INSERT INTO autobuses VALUES
+(1, 'ahdf58d8', 1, 1),
+(2, 'daf8456', 2, 1),
+(3, 'jvu5789', 3, 1),
+(4, 'fdx4356', 4, 1),
+(5, 'qwi7854', 5, 1),
+(6, 'asjf45', 1, 2),
+(7, 'asjdfa', 1, 5);
+INSERT INTO busconductores VALUES
+(1, '2018-01-16 22:02:37', 1, 1, '2018-01-16 23:02:37', '150', 1),
+(2, '2018-03-05 22:32:37', 2, 2, '2018-05-27 12:27:38', '200', 1),
+(3, '2018-03-05 23:02:37', 3, 3, '2018-05-27 12:27:47', '150', 1),
+(4, '2018-03-05 23:32:37', 4, 4, '2018-05-27 12:27:57', '170', 1),
+(5, '2018-02-21 13:02:37', 5, 5, '2018-02-21 14:02:37', '400', 1),
+(6, '2018-05-27 12:28:26', 2, 1, '2018-05-27 12:29:10', '240', 1),
+(7, '2018-05-27 12:28:34', 1, 3, '2018-05-27 12:29:20', '315', 1),
+(8, '2018-05-27 12:28:43', 4, 2, '2018-05-27 12:29:27', '300', 1),
+(9, '2018-05-27 12:28:51', 5, 5, '2018-05-27 12:30:16', '170', 1),
+(10, '2018-05-27 12:28:57', 3, 5, '2018-05-27 12:30:27', '33', 1),
+(11, '2018-04-09 12:28:57', 3, 5, '2018-04-09 13:28:57', '170', 1),
+(15, '2018-05-27 23:42:25', 3, 5, '2018-05-28 07:19:46', '700', 1),
+(16, '2018-05-28 07:19:26', 6, 5, '2018-05-28 07:19:26', '100', 0),
+(17, '2018-05-29 08:27:07', 3, 3, '2018-05-29 08:27:44', '10', 1),
+(18, '2018-05-30 02:23:31', 4, 3, '2018-05-30 02:23:31', '100', 0);
+INSERT INTO pagos VALUES
+(12, 'Toluca', 'Tenango', 1, 1),
+(12, 'Tenango', 'Toluca', 2, 2),
+(8, 'Tenango', 'Toluca', 3, 3),
+(9, 'Toluca', 'Tenango', 4, 4),
+(9, 'Tenango', 'Toluca', 5, 5);
+INSERT INTO horario VALUES
+('Lunes', '07:00:00', '20:00:00', 1),
+('Lunes', '07:00:00', '20:00:00', 2),
+('Lunes', '07:00:00', '20:00:00', 3),
+('Lunes', '07:00:00', '20:00:00', 4),
+('Lunes', '07:00:00', '20:00:00', 5);
+INSERT INTO rutasparadas VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1);
+INSERT INTO reportes VALUES
+('2018-03-05 22:02:37', 'El conductor conduce muy rapido', 1),
+('2018-03-05 22:02:37', 'El conductor conduce muy lento', 1),
+('2018-03-05 22:02:37', 'El conductor me trato mal', 1),
+('2018-03-05 22:02:37', 'Los asientos estan rotos', 1),
+('2018-03-05 22:02:37', 'La ventana esta rota', 1);
+INSERT INTO administradores VALUES
+(2, 'Mario', 'Serrano', 'Diaz', 'masdz2@hotmail.com', '123456789', 1),
+(3, 'Jovani', 's', 'G', 'masdz@hotmail.com', '123456', NULL),
+(4, 'Jovani', 's', 'G', 'masdz3@hotmail.com', '123456', NULL),
+(5, 'ELMARIO', 's', 'G', 'masdz4@hotmail.com', '123456', NULL),
+(6, 'ELMARIO', 's', 'G', 'masdz5@hotmail.com', '123456', NULL);
+USE busontime3
 SELECT Pas.Nombre,Pas.apellidop as ApellidoPaterno,Pas.apellidoM as ApellidoMaterno,Pag.costo as Monto,bus.Numeroautobus,Con.Nombre as Conductor,Bus.fechaHora as FechaYHora
 	FROM pasajeros AS Pas,Pagos AS Pag, BusConductores AS Bus,conductores AS Con
 	WHERE  Pas.idpasajero=Pag.idpasajero
@@ -140,37 +205,43 @@ SELECT H.dia,L.nombre as Linea,H.horainicio as Inicio,H.horafin as Fin
 	FROM LineasAutobuses AS L,Horario AS H
 	WHERE L.idlinea=H.idlinea
 	ORDER BY H.dia,Linea;
-
 SELECT aut.Numeroautobus,con.nombre,con.apellidoP,con.apellidoM,BC.fechaHora,rut.origen,rut.destino
-FROM Rutas AS rut, conductores AS con, autobuses As aut, BusConductores As BC
-WHERE aut.Numeroautobus=BC.Numeroautobus
-AND con.idconductor=BC.idconductor
-AND rut.idruta=aut.idruta;
-
-SELECT aut.Numeroautobus,
-	con.nombre,con.apellidoP,con.apellidoM,
-	DATE_FORMAT(BC.fechaHora,"%d/%m/%Y %H:%i:%s") as fechaHora,
-	DATE_FORMAT(BC.fechaHoraLlegada,"%d/%m/%Y %H:%i:%s") as fechaHorallegada,
-	BC.recolectado,rut.origen,rut.destinoFROM Rutas AS rut,
-	conductores AS con, autobuses As aut, BusConductores As BC WHERE aut.Numeroautobus=BC.Numeroautobus AND con.idconductor=BC.idconductor AND rut.idruta=aut.idruta;
-INSERT INTO BusConductores VALUES(6,'2018/03/05 13:02:37',5,5,'2018/03/05 14:02:37',300.0);
-
-UPDATE BusConductores SET fechaHoraLlegada=DEFAULT, recolectado=200, terminado=TRUE WHERE idbusconductor=1 ;
-
-SELECT recolectado,MONTH(fechaHora) AS mes FROM busconductores ORDER BY fechaHora WHERE fechaHora>DATE_SUB(now(),INTERVAL 1 YEAR);
-
-INSERT INTO busconductores VALUES (null,'2015/08/01',1,1,'2015/08/01',100,1);
-SELECT recolectado,MONTH(fechaHora) FROM busconductores WHERE fechaHora>DATE_SUB(now(),INTERVAL 1 YEAR) ORDER By fechaHora;
-
+	FROM Rutas AS rut, conductores AS con, autobuses As aut, BusConductores As BC
+	WHERE aut.Numeroautobus=BC.Numeroautobus
+	AND con.idconductor=BC.idconductor
+	AND rut.idruta=aut.idruta;
+SELECT recolectado,MONTH(fechaHora) as mes 
+	FROM busconductores 
+	WHERE fechaHora>DATE_SUB(now(),INTERVAL 1 YEAR) 
+	ORDER By fechaHora;
 SELECT A.Numeroautobus,count(B.Numeroautobus) as total 
-FROM autobuses as A,busconductores as B
-WHERE B.Numeroautobus=A.Numeroautobus
-GROUP BY(A.Numeroautobus)
-ORDER BY(total) DESC
-Limit 5;
-
-SELECT nombre,apellidoP,apellidoM,motivo,fecha
-FROM conductores,Reportes
-WHERE conductores.idconductor=Reportes.idconductor;
-
-SELECT 
+	FROM autobuses as A,busconductores as B 
+	WHERE B.Numeroautobus=A.Numeroautobus 
+	GROUP BY(A.Numeroautobus) 
+	ORDER BY(total) DESC Limit 5;
+SELECT BC.idbusconductor,
+		aut.Numeroautobus,
+		con.nombre,
+		con.apellidoP,con.apellidoM,
+		DATE_FORMAT(BC.fechaHora,"%d/%m/%Y %H:%i:%s") as fechaHora,
+		rut.origen,rut.destino 
+	FROM Rutas AS rut, 
+		conductores AS con, 
+		autobuses As aut, 
+		BusConductores As BC 
+	WHERE aut.Numeroautobus=BC.Numeroautobus 
+	AND con.idconductor=BC.idconductor 
+	AND rut.idruta=aut.idruta 
+	AND BC.terminado=false;
+SELECT aut.Numeroautobus,
+		con.nombre,con.apellidoP,
+		con.apellidoM,DATE_FORMAT(BC.fechaHora,"%d/%m/%Y %H:%i:%s") as fechaHora,
+		DATE_FORMAT(BC.fechaHoraLlegada,"%d/%m/%Y %H:%i:%s") as fechaHorallegada,
+		BC.recolectado,rut.origen,rut.destino FROM Rutas AS rut, conductores AS con, 
+		autobuses As aut, 
+		BusConductores As BC 
+	WHERE aut.Numeroautobus=BC.Numeroautobus 
+	AND con.idconductor=BC.idconductor 
+	AND rut.idruta=aut.idruta 
+	AND BC.terminado=true;
+	
