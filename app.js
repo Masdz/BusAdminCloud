@@ -11,9 +11,9 @@ var path = require('path')
 var conexionBD = require(__dirname + '/mysql/bdConexion')
 var sesion = require('express-session')
 
-const ADMINISTRADOR=1;
-const CONDUCTOR=2;
-const PASAJERO=3;
+const ADMINISTRADOR = 1;
+const CONDUCTOR = 2;
+const PASAJERO = 3;
 
 var  map =  new  HashMap()
 var tmap = new HashMap()
@@ -37,9 +37,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, 'Admin')))
 app.use(sesion({
-    secret:'Hola Paps',
-    resave:true,
-    saveUninitialized:true
+    secret: 'Hola Paps',
+    resave: true,
+    saveUninitialized: true
 }))
 
 setInterval(function() {
@@ -58,25 +58,25 @@ setInterval(function() {
         }
     }, 1200000)
     //},30000 )
-    
-function isSesionAdminIniciada(req){
-    if(req.session.userId!=undefined && req.session.userId!=null){
-        if(req.session.userType==ADMINISTRADOR){
+
+function isSesionAdminIniciada(req) {
+    if (req.session.userId != undefined && req.session.userId != null) {
+        if (req.session.userType == ADMINISTRADOR) {
             return true;
-        }else{
+        } else {
             console.log("Anuma me hakiaron :'v");
             return false;
         }
-    }else{
+    } else {
         console.log("Usuario no ingresado");
         return false;
     }
 }
-    
+
 app.get('/', function(req, res) {
-    if(isSesionAdminIniciada(req)){
+    if (isSesionAdminIniciada(req)) {
         res.sendFile(__dirname + '/Admin/inicio.html')
-    }else{
+    } else {
         res.sendFile(__dirname + '/Admin/login.html')
     }
 })
@@ -105,8 +105,8 @@ app.get('/OBTENERCORDENADAS2', function(req, res, next) {
 })
 
 app.get('/PROBAR', function(req, res) {
-    var v=req.session.visitas=req.session.visitas?req.session.visitas+1:1
-    res.status(200).send("Parece que esta es su "+v+"° visita")
+    var v = req.session.visitas = req.session.visitas ? req.session.visitas + 1 : 1
+    res.status(200).send("Parece que esta es su " + v + "° visita")
 })
 
 
@@ -196,8 +196,8 @@ app.get('/RUTAS', function(req, res) {
 
 app.get('/INGRESOS', function(req, res) {
     console.log(req.session.body);
-    if(req.session.userId!=undefined&&req.session.userId!=null){
-        if(req.session.userType==ADMINISTRADOR){
+    if (req.session.userId != undefined && req.session.userId != null) {
+        if (req.session.userType == ADMINISTRADOR) {
             var query = 'SELECT recolectado,MONTH(fechaHora) as mes FROM busconductores WHERE fechaHora>DATE_SUB(now(),INTERVAL 1 YEAR) ORDER By fechaHora'
             console.log(query)
             conexion.query(query, (error, result) => {
@@ -207,11 +207,11 @@ app.get('/INGRESOS', function(req, res) {
                     res.status(200).send(result)
                 }
             })
-        }else{
+        } else {
             res.status(403).send('Anuma este prro jugandole al hacker >:v')
             console.log("Usuario jugandole al hacker")
         }
-    }else{
+    } else {
         res.status(403).send('Parece que no ha ingresado aún')
         console.log("Usuario no ingreso")
     }
@@ -336,7 +336,7 @@ app.post('/REGISTRARRUTA', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al registrar ruta')
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Ruta añadida correctamente')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)
@@ -508,8 +508,8 @@ app.post('/LOGIN', function(req, res) {
             if (result[0] == undefined) {
                 res.status(404).send('Usuario o contraseña incorrectos')
             } else {
-                req.session.userId=result[0].idAdministrador
-                req.session.userType=ADMINISTRADOR;
+                req.session.userId = result[0].idAdministrador
+                req.session.userType = ADMINISTRADOR;
                 res.status(200).send(result[0])
             }
             console.log(result[0])
@@ -519,15 +519,15 @@ app.post('/LOGIN', function(req, res) {
     })
 })
 
-app.post('/LOGOUT',function(req,res){
-    req.session.userId=null
+app.post('/LOGOUT', function(req, res) {
+    req.session.userId = null
     res.status(200).send("exito")
 })
 
-app.post('/COMPROBARSESIONADMIN',function(req,res){
-    if(isSesionAdminIniciada(req)){
+app.post('/COMPROBARSESIONADMIN', function(req, res) {
+    if (isSesionAdminIniciada(req)) {
         res.status(200).send("Usuario ingresado")
-    }else{
+    } else {
         res.status(403).send("Usuario no ingresado")
     }
 })
@@ -658,7 +658,7 @@ app.post('/MODIFICARRUTA', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al modificar ruta')
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Ruta modificada exitosamente')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)
