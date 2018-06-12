@@ -318,9 +318,9 @@ app.post('/REGISTRARAUTOBUS', function(req, res) {
         idruta
     }, (error, result) => {
         if (error != undefined && error != null) {
-            res.status(409).send('Error al registrar autobus:' + error)
+            res.status(409).send('Error al registrar el autobús, número del autobús ya registrado')
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Autobús registrado exitosamente')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)

@@ -44,7 +44,7 @@ function validarDatos() {
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         request.onreadystatechange = function() {
             if (request.readyState == 4) {
-                alerta("Éxito", request.responseText);
+                alerta("Mensaje:", request.responseText);
             }
             $('#alertaError').hide();
             actualizarRutas();
@@ -113,5 +113,9 @@ function modificar() {
         request.send(JSON.stringify({ idruta, origen, destino }));
     }
 
+}
+
+function refresh() {
+    window.open("rutas.html", "_self");
 }
 actualizarRutas();
