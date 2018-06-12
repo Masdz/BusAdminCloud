@@ -1,6 +1,6 @@
-DROP DATABASE  IF EXISTS busontime3;
-CREATE DATABASE busontime3;
-USE busontime3;
+DROP DATABASE  IF EXISTS busontime2;
+CREATE DATABASE busontime2;
+USE busontime2;
 CREATE TABLE pasajeros(
 	idpasajero INT PRIMARY KEY AUTO_INCREMENT,
 	nombre varchar(60) NOT NULL,
@@ -177,14 +177,7 @@ INSERT INTO administradores VALUES
 (4, 'Jovani', 's', 'G', 'masdz3@hotmail.com', '123456', NULL),
 (5, 'ELMARIO', 's', 'G', 'masdz4@hotmail.com', '123456', NULL),
 (6, 'ELMARIO', 's', 'G', 'masdz5@hotmail.com', '123456', NULL);
-USE busontime3
-SELECT Pas.Nombre,Pas.apellidop as ApellidoPaterno,Pas.apellidoM as ApellidoMaterno,Pag.costo as Monto,bus.Numeroautobus,Con.Nombre as Conductor,Bus.fechaHora as FechaYHora
-	FROM pasajeros AS Pas,Pagos AS Pag, BusConductores AS Bus,conductores AS Con
-	WHERE  Pas.idpasajero=Pag.idpasajero
-	AND Pag.idbusconductor=Bus.idbusconductor
-	AND Bus.idconductor=Con.idconductor
-	AND Pas.email='rmail@mail.com'
-	ORDER BY Bus.fecha;
+USE busontime2;
 SELECT R.origen as Origen, R.destino as Destino 
 	FROM rutas as R, autobuses as A
 	WHERE R.idruta=A.idruta
