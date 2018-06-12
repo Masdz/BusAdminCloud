@@ -11,7 +11,6 @@ function actualizarAutobuses() {
         tabla += "<td>" + res[i].Numeroautobus + "</td>";
         tabla += "<td>" + res[i].placa + "</td>";
         tabla += "<td>" + res[i].origen + "-" + res[i].destino + "</td>";
-        tabla += "<td>" + res[i].total + "</td>";
         tabla += '<td>'
         tabla += '<button class="btn btn-danger" data-toggle="modal" data-target="#confirmationModal" onclick="setid(' + res[i].Numeroautobus + ')">'
         tabla += '<i class="fa fa-trash"></i>'
