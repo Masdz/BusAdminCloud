@@ -7,7 +7,7 @@ function actualizarviajeshistorial() {
     for (var i in res) {
         tabla += "<tr>";
         tabla += "<td>" + res[i].Numeroautobus + "</td>";
-        tabla += "<td>" + res[i].nombre +' '+ res[i].apellidoP +' '+ res[i].apellidoM + "</td>";
+        tabla += "<td>" + res[i].nombre + ' ' + res[i].apellidoP + ' ' + res[i].apellidoM + "</td>";
         tabla += "<td>" + res[i].fechaHora + "</td>";
         tabla += "<td>" + res[i].fechaHorallegada + "</td>";
         tabla += "<td>" + res[i].recolectado + "</td>";
@@ -17,3 +17,7 @@ function actualizarviajeshistorial() {
     document.getElementById("tablaviajeshistorial").innerHTML = tabla;
 }
 actualizarviajeshistorial();
+
+function refresh() {
+    window.open("viajes.html", "_self");
+}

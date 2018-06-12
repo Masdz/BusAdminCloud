@@ -6,7 +6,7 @@ function actualizarReportes() {
     var tabla = "";
     for (var i in res) {
         tabla += "<tr>";
-        tabla += "<td>" + res[i].nombre+ "</td>";
+        tabla += "<td>" + res[i].nombre + "</td>";
         tabla += "<td>" + res[i].apellidoP + "</td>";
         tabla += "<td>" + res[i].apellidoM + "-" + res[i].destino + "</td>";
         tabla += "<td>" + res[i].motivo + "</td>";
@@ -14,6 +14,10 @@ function actualizarReportes() {
         tabla += "</tr>";
     }
     document.getElementById("tabla").innerHTML = tabla;
+}
+
+function refresh() {
+    window.open("reportes.html", "_self");
 }
 
 actualizarReportes();
