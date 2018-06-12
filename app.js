@@ -111,10 +111,10 @@ app.get('/PROBAR', function(req, res) {
 
 
 app.get('/AUTOBUSES', function(req, res) {
-    var query = 'SELECT  autobuses.Numeroautobus,placa,autobuses.idruta,idlinea,origen,destino,count(busconductores.Numeroautobus) as total '
-    query += 'FROM autobuses,rutas,busconductores '
-    query += 'where autobuses.idruta=rutas.idruta '
-    query += 'and busconductores.Numeroautobus=autobuses.Numeroautobus '
+    var query = 'SELECT  B.Numeroautobus,placa,B.idruta,idlinea,origen,destino,count(busconductores.Numeroautobus) as total '
+    query += 'FROM autobuses as B,rutas as R,busconductores as BC '
+    query += 'where B.idruta=rutas.idruta '
+    query += 'and (busconductores.Numeroautobus=autobuses.Numeroautobus) '
     query += 'group by autobuses.Numeroautobus'
     console.log(query)
     conexion.query(query, (error, result) => {
