@@ -24,6 +24,10 @@ function actualizarAutobuses() {
     document.getElementById("tabla").innerHTML = tabla;
 }
 
+function limpiar() {
+    $('#alertaErrorMod').hide();
+}
+
 function refresh() {
     window.open("autobuses.html", "_self");
 }
@@ -119,16 +123,31 @@ function modificar() {
     var Numeroautobus = res[id].Numeroautobus;
     var placa = document.getElementById("modplaca").value;
     var idruta = document.getElementById("modruta").value;
-    var request = new XMLHttpRequest();
-    request.open("POST", "MODIFICARAUTOBUS", true);
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.onreadystatechange = function() {
-        if (request.readyState == 4) {
-            alert(request.responseText);
+    //var numeroRegex = /^([0-9])*$/;
+    var placaRegex = /^([A-z0-9])*$/;
+    if (Numeroautobus == "" || Numeroautobus == null || placa == "" || placa == null || idruta == "" || idruta == null) {
+        document.getElementById("mensajeEMod").innerHTML = "Completa todos los campos.";
+        $('#alertaErrorMod').show();
+        console.log("Campos");
+    } else if (!placaRegex.test(placa)) {
+        document.getElementById("mensajeEMod").innerHTML = "La placa solo debe tener letras y números.";
+        $('#alertaErrorMod').show();
+        console.log("Placa");
+    } else {
+        var request = new XMLHttpRequest();
+        request.open("POST", "MODIFICARAUTOBUS", true);
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        request.onreadystatechange = function() {
+            if (request.readyState == 4) {
+                alerta("Mensaje:", request.responseText);
+            }
+            actualizarAutobuses();
+            $('#alertaErrorMod').hide();
+            $('#mmodificar').modal('hide');
         }
-        actualizarAutobuses();
+        request.send(JSON.stringify({ Numeroautobus, placa, idruta }));
     }
-    request.send(JSON.stringify({ Numeroautobus, placa, idruta }));
+
 }
 actualizarAutobuses();
 iniselect('selectruta');

@@ -638,7 +638,7 @@ app.post('/MODIFICARAUTOBUS', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al modificar autobus')
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Autobús modificado correctamente.')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)
