@@ -22,7 +22,6 @@ function actualizarAutobuses() {
         tabla += "</tr>";
     }
     document.getElementById("tabla").innerHTML = tabla;
-    initable1();
 }
 
 function iniselect(select){
@@ -98,4 +97,4 @@ function modificar(){
     request.send(JSON.stringify({Numeroautobus,placa,idruta}));
 }
 actualizarAutobuses();
-iniselect();
+iniselect('selectruta');
