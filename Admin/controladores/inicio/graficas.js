@@ -10,35 +10,25 @@ var datosbuses = [];
 var maxi = 0;
 function getDatos() {
   var request = new XMLHttpRequest();
-  request.open('GET', 'INGRESOS', true);
-  request.onreadystatechange = function () {
-    if (request.readyState == 4) {
-      if (request.status == 200) {
-        console.log("Todo bien");
-        var res = JSON.parse(request.responseText);
-        var vals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-        for (var i in res) {
-          vals[res[i].mes - 1] += res[i].recolectado;
-        }
-        var mes = new Date().getMonth();
-        for (var i = 0; i < 12; i++) {
-          mes++;
-          if (mes > 11) {
-            mes = 0;
-          }
-          datos.push(vals[mes]);
-          etiquetas.push(meses[mes]);
-          maxi = getMaxi(datos);
-        }
-        inigrafica();
-        initabla();
-      }else{
-        console.log("Error: "+request.responseText);
-      }
-    }
-  }
+  request.open('GET', 'INGRESOS', false);
   request.send(null);
+  console.log(request.responseText);
+  var res = JSON.parse(request.responseText);
+  var vals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  for (var i in res) {
+    vals[res[i].mes - 1] += res[i].recolectado;
+  }
+  var mes = new Date().getMonth();
+  for (var i = 0; i < 12; i++) {
+    mes++;
+    if (mes > 11) {
+      mes = 0;
+    }
+    datos.push(vals[mes]);
+    etiquetas.push(meses[mes]);
+    maxi = getMaxi(datos);
+  }
 }
 
 function getDatos2() {
@@ -154,5 +144,7 @@ function initabla() {
   }
   document.getElementById("tabla").innerHTML = tabla;
 }
-inipastel();
 getDatos();
+inipastel();
+inigrafica();
+initabla();
