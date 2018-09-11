@@ -15,7 +15,7 @@ CREATE TABLE conductores(
 	apellidoP VARCHAR(30),
 	apellidoM VARCHAR(30),
 	email varchar(40) NOT NULL UNIQUE,
-	contrasena varchar(100) NOT NULL
+	contrasena varchar(100)
 );
 CREATE TABLE rutas(
 	idruta INT PRIMARY KEY AUTO_INCREMENT,
