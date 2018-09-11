@@ -36,6 +36,7 @@ function registrarConductor() {
     var amaterno = document.getElementById("ftapellidom").value;
     var email = document.getElementById("ftcorreo").value;
     var tabla = "conductores";
+    var nombreRegex = /^([A-z])*$/;
     var emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     if (nombre == "" || nombre == null || apaterno == "" || apaterno == null || amaterno == "" || amaterno == null || email == "" || email == null) {
         document.getElementById("mensajeE").innerHTML = "Completa todos los campos.";
