@@ -7,15 +7,20 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
+            <div class="alert alert-danger" id="alertaErrorMod1" role="alert" style="display:none;">
+                <!--  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+                <strong>¡Error!</strong>
+                <p id="mensajeEMod1"></p>
+            </div>
             <div class="modal-body">
-                Ingresa el dinero total obtenido en el viaje:
+                Ingresa el dinero total obtenido en el viaje:  
                 <div class="form-group">
                     <input type="text" class="form-control" name="recolectado" id="recolectado" placeholder="Obtenido">
                 </div>
-                        <button class="btn btn-primary" data-dismiss="modal" onclick="terminarViaje(recolectado.value)">Aceptar</button>
+                        <button class="btn btn-primary" onclick="validarDatos(recolectado.value)">Aceptar</button>
                 </form>
-                
             </div>
         </div>
     </div>
 </div>
+

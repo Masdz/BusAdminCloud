@@ -32,7 +32,7 @@ function iniciarViaje() {
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
-            alert(request.responseText);
+            alerta("Éxito",request.responseText);
         }
     }
     request.send(JSON.stringify({ idconductor, Numeroautobus }));

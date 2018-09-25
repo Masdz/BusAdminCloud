@@ -298,14 +298,14 @@ app.post('/ENVIARCORDENADAS', function(req, res) {
         '"longitud": ' + req.body.longitud + ',' +
         '"velocidad": ' + req.body.velocidad)
     tmap.set(req.body.id, '1')
-    res.status(200).send('Exito')
+    res.status(200).send('Éxito')
 })
 
 app.post('/ELIMINARCORDENADAS', function(req, res) {
     console.log('eliminar' + req.body.id)
     map.delete(req.body.id)
     tmap.delete(req.body.id)
-    res.status(200).send('Exito')
+    res.status(200).send('Éxito')
 })
 app.post('/REGISTRARAUTOBUS', function(req, res) {
     const { Numeroautobus, placa, idlinea, idruta } = req.body
@@ -351,7 +351,7 @@ app.post('/INICIARVIAJE', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al iniciar viaje')
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Éxito')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)
@@ -367,7 +367,7 @@ app.post('/TERMINARVIAJE', function(req, res) {
             console.log('id ' + idbusconductor)
             console.log('recc ' + recolectado)
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Éxito')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)
@@ -537,7 +537,7 @@ app.post('/ELIMINARVIAJE', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al eliminar viaje' + error)
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Éxito')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)
@@ -552,7 +552,7 @@ app.post('/ELIMINARCONDUCTOR', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al eliminar conductor' + error)
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Éxito')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)
@@ -567,7 +567,7 @@ app.post('/ELIMINARAUTOBUS', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al eliminar autobus, solo puedes eliminar autobuses que no tengan viajes realizados')
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Éxito')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)
@@ -581,7 +581,7 @@ app.post('/ELIMINARUTA', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al eliminar ruta ' + error)
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Éxito')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)
@@ -600,7 +600,7 @@ app.post('/REGISTRO', function(req, res) {
         if (error != undefined && error != null) {
             res.status(409).send('Error al registrar Administrador' + error)
         } else {
-            res.status(200).send('Exito')
+            res.status(200).send('Éxito')
         }
         console.log('resultado: ' + result)
         console.log('error: ' + error)

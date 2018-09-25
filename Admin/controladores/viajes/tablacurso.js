@@ -39,7 +39,7 @@ function terminarViaje(recolectado) {
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.onreadystatechange = function() {
         if (request.readyState == 4) {
-            alert(request.responseText);
+            alerta("Viaje terminado exitosamente",request.responseText);
         }
         actualizarviajescurso();
         actualizarviajeshistorial();
@@ -54,12 +54,39 @@ function eliminar() {
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.onreadystatechange = function() {
         if (request.readyState == 4) {
-            alert(request.responseText);
+            alerta("Eliminado correctamente",request.responseText);
         }
         actualizarviajescurso();
         actualizarviajeshistorial();
     }
     request.send(JSON.stringify({ id }));
+}
+
+//Validar datos del modal
+
+function validarDatos(recolectado){
+    //Validar numero decimal con dos digitos decimales de precision
+    var dineroRegex=/^\d*(\.\d{1})?\d{0,1}$/;
+    var dineroRecolectado = recolectado;
+    if(dineroRecolectado == "" || dineroRecolectado== null){
+        document.getElementById("mensajeEMod1").innerHTML = "Completa todos los campos.";
+        $('#alertaErrorMod1').show();
+        console.log("Hola");
+    }else if(!dineroRegex.test(dineroRecolectado)){
+        document.getElementById("mensajeEMod1").innerHTML = "Ingresa un número valido con maximo dos decimales";
+        $('#alertaErrorMod1').show();
+        console.log("Hola2");
+    }else{
+        terminarViaje(dineroRecolectado);
+        $('#terminarviajeModal').modal('hide');
+        limpiar();
+        console.log("Hola3");
+    }
+}
+
+function limpiar() {
+    $('#alertaErrorMod1').hide();
+    document.getElementById("recolectado").value="";
 }
 
 actualizarviajescurso();
